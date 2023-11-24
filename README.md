@@ -3,5 +3,6 @@ https://github.com/sasansom/sedes
 
 ```
 make -j4
-src/expectancy --by sedes/metrical_shape corpus/*.csv > "expectancy.sedes-metrical_shape.csv"
+src/expectancy --by sedes/metrical_shape corpus/*.csv > expectancy.sedes-metrical_shape.csv
+./summary-table.py < expectancy.sedes-metrical_shape.csv > summary-table.html
 ```
