@@ -77,19 +77,19 @@ def weighted_sd_pop(x):
 
 Entry = collections.namedtuple("Entry", ("x", "z"))
 
-def shapes_gen_sub(length):
+def shapes_gen_length(length):
     if length <= 0:
         yield ""
     else:
-        for x in shapes_gen_sub(length - 1):
+        for x in shapes_gen_length(length - 1):
             yield "–" + x
-        for x in shapes_gen_sub(length - 1):
+        for x in shapes_gen_length(length - 1):
             yield "⏑" + x
 
 def shapes_gen():
     i = 0
     while True:
-        yield from shapes_gen_sub(i)
+        yield from shapes_gen_length(i)
         i += 1
 
 def is_metrically_permissible_anywhere(shape):
@@ -150,7 +150,7 @@ print("<th>Total</th>")
 print("</tr>")
 
 for shape in shapes_gen():
-    if len(M) == 0:
+    if len(shape) > 8:
         break
     if not is_metrically_permissible_anywhere(shape):
         print("<!--")
