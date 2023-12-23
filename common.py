@@ -1,20 +1,22 @@
+import collections
 import math
 
 KNOWN_SEDES = ("1", "2", "2.5", "3", "4", "4.5", "5", "6", "6.5", "7", "8", "8.5", "9", "10", "10.5", "11", "12")
 
+Work = collections.namedtuple("Work", ("id", "html_name"))
 KNOWN_WORKS = (
-    "Il.",
-    "Od.",
-    "Hom.Hymn",
-    "Theog.",
-    "W.D.",
-    "Sh.",
-    "Argon.",
-    "Callim.Hymn",
-    "Phaen.",
-    "Theoc.",
-    "Q.S.",
-    "Dion.",
+    Work("Il.", "<cite>Iliad</cite>"),
+    Work("Od.", "<cite>Odyssey</cite>"),
+    Work("Hom.Hymn", "<cite>Hom.&nbsp;Hymns</cite."),
+    Work("Theog.", "<cite>Theog.</cite>"),
+    Work("W.D.", "<cite>WD</cite>"),
+    Work("Sh.", "<cite>Shield</cite>"),
+    Work("Argon.", "<cite>Argon.</cite>"),
+    Work("Callim.Hymn", "Callim.&nbsp;<cite>Hymns</cite>"),
+    Work("Phaen.", "<cite>Phaen.</cite>"),
+    Work("Theoc.", "Theoc."),
+    Work("Q.S.", "Quint.&nbsp;Smyrn."),
+    Work("Dion.", "<cite>Dion.</cite>"),
 )
 
 def is_metrically_permissible(shape, sedes):

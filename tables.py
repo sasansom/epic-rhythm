@@ -63,7 +63,7 @@ for shape in common.shapes_gen():
         print("<!--")
         for work in common.KNOWN_WORKS:
             for sedes in map(float, common.KNOWN_SEDES):
-                assert M.get((shape, work, sedes)) is None, (shape, work, sedes)
+                assert M.get((shape, work.id, sedes)) is None, (shape, work.id, sedes)
 
     print(f"<h2 id=\"shape-{html.escape(shape)}\">{html.escape(' '.join(shape) if shape else '(empty shape)')}</h2>")
 
@@ -77,14 +77,14 @@ for shape in common.shapes_gen():
 
     print("<tr>")
     for work in common.KNOWN_WORKS:
-        print(f"<td>{html.escape(work)}</td>")
+        print(f"<td>{work.html_name}</td>")
         xvec = []
         for sedes in map(float, common.KNOWN_SEDES):
-            entry = M.get((shape, work, sedes))
+            entry = M.get((shape, work.id, sedes))
             if entry is not None:
                 xvec.append(entry.x)
         for sedes in map(float, common.KNOWN_SEDES):
-            entry = M.get((shape, work, sedes))
+            entry = M.get((shape, work.id, sedes))
             if not common.is_metrically_permissible(shape, sedes):
                 assert entry is None, entry
                 print("<td class=impermissible>✖</td>")
@@ -92,7 +92,7 @@ for shape in common.shapes_gen():
                 if entry is None:
                     entry = Entry(0, common.expectancy(0, xvec))
                 try:
-                    del M[(shape, work, sedes)]
+                    del M[(shape, work.id, sedes)]
                 except KeyError:
                     pass
                 contents = "<span class=x>" + html.escape("{:,}".format(entry.x)) + "</span>"
