@@ -2,6 +2,21 @@ import math
 
 KNOWN_SEDES = ("1", "2", "2.5", "3", "4", "4.5", "5", "6", "6.5", "7", "8", "8.5", "9", "10", "10.5", "11", "12")
 
+KNOWN_WORKS = (
+    "Il.",
+    "Od.",
+    "Hom.Hymn",
+    "Theog.",
+    "W.D.",
+    "Sh.",
+    "Argon.",
+    "Callim.Hymn",
+    "Phaen.",
+    "Theoc.",
+    "Q.S.",
+    "Dion.",
+)
+
 def is_metrically_permissible(shape, sedes):
     """Returns True iff shape is metrically permitted at sedes."""
     s = (sedes - 1) * 2

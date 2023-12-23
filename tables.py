@@ -7,21 +7,6 @@ import sys
 
 import common
 
-KNOWN_WORKS = (
-    "Il.",
-    "Od.",
-    "Hom.Hymn",
-    "Theog.",
-    "W.D.",
-    "Sh.",
-    "Argon.",
-    "Callim.Hymn",
-    "Phaen.",
-    "Theoc.",
-    "Q.S.",
-    "Dion.",
-)
-
 Entry = collections.namedtuple("Entry", ("x", "z"))
 
 M = {}
@@ -76,7 +61,7 @@ for shape in common.shapes_gen():
 
     if not common.is_metrically_permissible_anywhere(shape):
         print("<!--")
-        for work in KNOWN_WORKS:
+        for work in common.KNOWN_WORKS:
             for sedes in map(float, common.KNOWN_SEDES):
                 assert M.get((shape, work, sedes)) is None, (shape, work, sedes)
 
@@ -91,7 +76,7 @@ for shape in common.shapes_gen():
     print("</tr>")
 
     print("<tr>")
-    for work in KNOWN_WORKS:
+    for work in common.KNOWN_WORKS:
         print(f"<td>{html.escape(work)}</td>")
         xvec = []
         for sedes in map(float, common.KNOWN_SEDES):
