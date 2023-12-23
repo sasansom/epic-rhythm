@@ -10,9 +10,9 @@ import common
 KNOWN_WORKS = (
     "Il.",
     "Od.",
+    "Hom.Hymn",
     "Theog.",
     "W.D.",
-    "Hom.Hymn",
     "Sh.",
     "Argon.",
     "Callim.Hymn",
