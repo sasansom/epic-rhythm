@@ -104,7 +104,7 @@ def z_css(z):
     srgb = interpolate_srgb(tone_map(z), COLOR_LOW, COLOR_HIGH)
     return "; ".join((
         "background-color:" + css_color(*srgb),
-        "color:" + "white" if srgb_luminance(*srgb) < LUMINANCE_INVERSION_THRESHOLD else "black",
+        "color:" + ("white" if srgb_luminance(*srgb) < LUMINANCE_INVERSION_THRESHOLD else "black"),
     ))
 
 # Return the mean of the sequence that arises from repeating each element e of
