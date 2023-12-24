@@ -83,21 +83,27 @@ print(common.html_end_tag("tr"))
 for shape in common.shapes_gen():
     if len(shape) > 8:
         break
-    if not common.is_metrically_permissible_anywhere(shape):
+
+    xvec = []
+    for sedes in map(float, common.KNOWN_SEDES):
+        entry = M.get((shape, sedes))
+        if entry is not None:
+            xvec.append(entry.x)
+
+    if sum(xvec) == 0:
         print("<!--")
         for sedes in map(float, common.KNOWN_SEDES):
             assert M.get((shape, sedes)) is None, (shape, sedes)
+
+    if not common.is_metrically_permissible_anywhere(shape):
+        assert sum(xvec) == 0, xvec
+
     print(common.html_start_tag("tr"))
     print(
         common.html_start_tag_style("td", STYLE_HEADER + STYLE_LEFT) +
         html.escape(' '.join(shape)) +
         common.html_end_tag("td")
     )
-    xvec = []
-    for sedes in map(float, common.KNOWN_SEDES):
-        entry = M.get((shape, sedes))
-        if entry is not None:
-            xvec.append(entry.x)
     for sedes in map(float, common.KNOWN_SEDES):
         entry = M.get((shape, sedes))
         if not common.is_metrically_permissible(shape, sedes):
@@ -135,7 +141,8 @@ for shape in common.shapes_gen():
     )
     print(common.html_end_tag("td"))
     print("</tr>")
-    if not common.is_metrically_permissible_anywhere(shape):
+
+    if sum(xvec) == 0:
         print("-->")
 assert len(M) == 0, M
 
