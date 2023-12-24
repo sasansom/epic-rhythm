@@ -121,13 +121,12 @@ for shape in common.shapes_gen():
             except KeyError:
                 pass
             contents = common.html_start_tag_style("span", STYLE_X) + html.escape(f"{entry.x:,}") + common.html_end_tag("span")
-            if entry.z is not None:
-                contents += (
-                    common.html_start_tag("br") +
-                    common.html_start_tag_style("span", STYLE_Z) +
-                    html.escape("{:+.03f}".format(entry.z).replace("-", "−")) +
-                    common.html_end_tag("span")
-                )
+            contents += (
+                common.html_start_tag("br") +
+                common.html_start_tag_style("span", STYLE_Z) +
+                html.escape("{:+.03f}".format(entry.z).replace("-", "−") if entry.z is not None else "\u200c") +
+                common.html_end_tag("span")
+            )
             print(
                 common.html_start_tag_style("td", STYLE_CELL + common.z_css(entry.z) + STYLE_RIGHT) +
                 contents +
