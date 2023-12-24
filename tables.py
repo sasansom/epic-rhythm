@@ -98,7 +98,11 @@ for shape in common.shapes_gen():
                 contents = "<span class=x>" + html.escape("{:,}".format(entry.x)) + "</span>"
                 if entry.z is not None:
                     contents += "<br><span class=z>" + html.escape("{:+.03f}".format(entry.z).replace("-", "−")) + "</span>"
-                print(f"<td style=\"{html.escape(common.z_css(entry.z))}\">{contents}</td>")
+                print(
+                    common.html_start_tag_style("td", common.z_css(entry.z)) +
+                    contents +
+                    common.html_end_tag("td")
+                )
         print(f"<td><span class=x>{html.escape('{:,}'.format(sum(xvec)))}</span></td>")
         print("</tr>")
     print("</table>")

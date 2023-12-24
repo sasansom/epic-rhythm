@@ -7,6 +7,36 @@ import sys
 
 import common
 
+STYLE_X = (
+    ("font-size", "small"),
+)
+STYLE_Z = (
+    ("font-size", "x-small"),
+)
+STYLE_CELL = (
+    ("vertical-align", "middle"),
+    ("padding", "1pt"),
+    ("min-width", "28pt"),
+)
+STYLE_IMPERMISSIBLE = (
+    ("color", "lightgray"),
+    ("text-align", "center"),
+    ("background-color", "cornsilk"),
+    ("font-size", "inherit"),
+) + STYLE_CELL
+STYLE_HEADER = (
+    ("background-color", "lavender"),
+) + STYLE_CELL
+STYLE_TH = (
+    ("font-weight", "bold"),
+) + STYLE_HEADER
+STYLE_LEFT = (
+    ("text-align", "left"),
+)
+STYLE_RIGHT = (
+    ("text-align", "right"),
+)
+
 Entry = collections.namedtuple("Entry", ("x", "z"))
 
 M = {}
@@ -20,48 +50,29 @@ print("""\
 <html>
 <head>
 <meta charset=utf-8>
-<style>
-th, td {
-    padding: 0 0.5ex;
-    width: 5ex;
-    vertical-align: top;
-}
-th {
-    background-color: lavender;
-    font-weight: bold;
-}
-tr th:first-child, tr td:first-child {
-    background-color: lavender;
-    text-align: left;
-}
-th, tr td {
-    text-align: right;
-}
-td.impermissible {
-    color: lightgray;
-    text-align: center;
-    background-color: cornsilk;
-    font-size: inherit;
-    vertical-align: middle;
-}
-.x {
-    font-size: small;
-}
-.z {
-    font-size: x-small;
-}
-</style>
 </head>
 <body>
 """)
 
-print("<table>")
-print("<tr>")
-print("<th>Shape</th>")
+print(common.html_start_tag("table"))
+print(common.html_start_tag("tr"))
+print(
+    common.html_start_tag_style("th", STYLE_TH + STYLE_LEFT) +
+    html.escape("Shape") +
+    common.html_end_tag("th")
+)
 for sedes in common.KNOWN_SEDES:
-    print(f"<th>{html.escape(sedes)}</th>")
-print("<th>Total</th>")
-print("</tr>")
+    print(
+        common.html_start_tag_style("th", STYLE_TH + STYLE_RIGHT) +
+        html.escape(sedes) +
+        common.html_end_tag("th")
+    )
+print(
+    common.html_start_tag_style("th", STYLE_TH + STYLE_RIGHT) +
+    html.escape("Total") +
+    common.html_end_tag("th")
+)
+print(common.html_end_tag("tr"))
 
 for shape in common.shapes_gen():
     if len(shape) > 8:
@@ -70,8 +81,12 @@ for shape in common.shapes_gen():
         print("<!--")
         for sedes in map(float, common.KNOWN_SEDES):
             assert M.get((shape, sedes)) is None, (shape, sedes)
-    print("<tr>")
-    print(f"<td>{html.escape(' '.join(shape))}</td>")
+    print(common.html_start_tag("tr"))
+    print(
+        common.html_start_tag_style("td", STYLE_HEADER + STYLE_LEFT) +
+        html.escape(' '.join(shape)) +
+        common.html_end_tag("td")
+    )
     xvec = []
     for sedes in map(float, common.KNOWN_SEDES):
         entry = M.get((shape, sedes))
@@ -81,7 +96,11 @@ for shape in common.shapes_gen():
         entry = M.get((shape, sedes))
         if not common.is_metrically_permissible(shape, sedes):
             assert entry is None, entry
-            print("<td class=impermissible>✖</td>")
+            print(
+                common.html_start_tag_style("td", STYLE_IMPERMISSIBLE) +
+                html.escape("✖") +
+                common.html_end_tag("td")
+            )
         else:
             if entry is None:
                 entry = Entry(0, common.expectancy(0, xvec))
@@ -89,17 +108,32 @@ for shape in common.shapes_gen():
                 del M[(shape, sedes)]
             except KeyError:
                 pass
-            contents = "<span class=x>" + html.escape("{:,}".format(entry.x)) + "</span>"
+            contents = common.html_start_tag_style("span", STYLE_X) + html.escape(f"{entry.x:,}") + common.html_end_tag("span")
             if entry.z is not None:
-                contents += "<br><span class=z>" + html.escape("{:+.03f}".format(entry.z).replace("-", "−")) + "</span>"
-            print(f"<td style=\"{html.escape(common.z_css(entry.z))}\">{contents}</td>")
-    print(f"<td><span class=x>{html.escape('{:,}'.format(sum(xvec)))}</span></td>")
+                contents += (
+                    common.html_start_tag("br") +
+                    common.html_start_tag_style("span", STYLE_Z) +
+                    html.escape("{:+.03f}".format(entry.z).replace("-", "−")) +
+                    common.html_end_tag("span")
+                )
+            print(
+                common.html_start_tag_style("td", STYLE_CELL + common.z_css(entry.z) + STYLE_RIGHT) +
+                contents +
+                common.html_end_tag("td")
+            )
+    print(common.html_start_tag_style("td", STYLE_CELL + STYLE_RIGHT))
+    print(
+        common.html_start_tag_style("span", STYLE_X) +
+        html.escape('{:,}'.format(sum(xvec))) +
+        common.html_end_tag("span")
+    )
+    print(common.html_end_tag("td"))
     print("</tr>")
     if not common.is_metrically_permissible_anywhere(shape):
         print("-->")
 assert len(M) == 0, M
 
-print("</table>")
+print(common.html_end_tag("table"))
 
 print("""\
 </body>

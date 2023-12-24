@@ -1,4 +1,6 @@
 import collections
+import html
+import itertools
 import math
 
 KNOWN_SEDES = ("1", "2", "2.5", "3", "4", "4.5", "5", "6", "6.5", "7", "8", "8.5", "9", "10", "10.5", "11", "12")
@@ -102,10 +104,10 @@ def z_css(z):
     if z is None:
         z = 0.0
     srgb = interpolate_srgb(tone_map(z), COLOR_LOW, COLOR_HIGH)
-    return "; ".join((
-        "background-color:" + css_color(*srgb),
-        "color:" + ("white" if srgb_luminance(*srgb) < LUMINANCE_INVERSION_THRESHOLD else "black"),
-    ))
+    return (
+        ("background-color", css_color(*srgb)),
+        ("color", ("white" if srgb_luminance(*srgb) < LUMINANCE_INVERSION_THRESHOLD else "black")),
+    )
 
 # Return the mean of the sequence that arises from repeating each element e of
 # x, e times.
@@ -125,3 +127,40 @@ def expectancy(x, xvec):
     else:
         z = None
     return z
+
+# https://html.spec.whatwg.org/multipage/syntax.html#start-tags
+def html_start_tag(name, attrs = ()):
+    return "<" + name + "".join(" " + key + "=\"" + html.escape(value) + "\"" for key, value in attrs) + ">"
+
+# https://html.spec.whatwg.org/multipage/syntax.html#end-tags
+def html_end_tag(name):
+    return "</" + name + ">"
+
+# https://www.w3.org/TR/css-syntax-3/#escape-codepoint
+# https://mathiasbynens.be/notes/css-escapes
+def css_escape_codepoint(c):
+    return f"\\{ord(c):x} "
+
+def css_escape_predicate(s, needs_escaping):
+    return "".join(c if not needs_escaping(c) else css_escape_codepoint(c) for c in s)
+
+def css_escape_ident(s):
+    escaped = []
+    first = True
+    for c in s:
+        # https://www.w3.org/TR/css-syntax-3/#ident-start-code-point
+        # https://www.w3.org/TR/css-syntax-3/#ident-code-point
+        if (first and not c.isalpha()) or (not first and not (c.isalnum() or c == "-")):
+            c = css_escape_codepoint(c)
+        escaped.append(c)
+        first = False
+    return "".join(escaped)
+
+def css_escape_value(s):
+    return "".join(c if not (c == ";" or c == "\\") else css_escape_codepoint(c) for c in s)
+
+def html_start_tag_style(name, style = (), attrs = ()):
+    return html_start_tag(name, itertools.chain(
+        attrs,
+        (("style", " ".join(css_escape_ident(property) + ": " + css_escape_value(value) + ";" for property, value in style)),),
+    ))
