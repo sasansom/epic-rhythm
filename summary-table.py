@@ -7,22 +7,28 @@ import sys
 
 import common
 
+STYLE_TABLE = (
+    ("border-collapse", "collapse"),
+    ("border-spacing", "1pt"),
+)
 STYLE_X = (
-    ("font-size", "small"),
+    ("font-size", "8pt"),
 )
 STYLE_Z = (
-    ("font-size", "x-small"),
+    ("font-size", "7pt"),
 )
 STYLE_CELL = (
+    ("font-size", "8pt"),
     ("vertical-align", "middle"),
     ("padding", "1pt"),
     ("min-width", "28pt"),
+    ("line-height", "100%"),
+    ("border", "solid 1pt #d3d3d3"),
 )
 STYLE_IMPERMISSIBLE = (
-    ("color", "lightgray"),
+    ("color", "#d3d3d3"),
     ("text-align", "center"),
     ("background-color", "cornsilk"),
-    ("font-size", "inherit"),
 ) + STYLE_CELL
 STYLE_HEADER = (
     ("background-color", "lavender"),
@@ -54,7 +60,7 @@ print("""\
 <body>
 """)
 
-print(common.html_start_tag("table"))
+print(common.html_start_tag_style("table", STYLE_TABLE))
 print(common.html_start_tag("tr"))
 print(
     common.html_start_tag_style("th", STYLE_TH + STYLE_LEFT) +
@@ -69,7 +75,7 @@ for sedes in common.KNOWN_SEDES:
     )
 print(
     common.html_start_tag_style("th", STYLE_TH + STYLE_RIGHT) +
-    html.escape("Total") +
+    "Total&nbsp;(Σ<var>x</var>)" +
     common.html_end_tag("th")
 )
 print(common.html_end_tag("tr"))
