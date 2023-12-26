@@ -12,4 +12,5 @@ In this working directory:
 ```
 ./tables.py < expectancy.sedes-work,metrical_shape.csv > tables.html
 ./summary-table.py < expectancy.sedes-metrical_shape.csv > summary-table.html
+./table-ssl.py < expectancy.sedes-work,metrical_shape.csv > table-ssl.html
 ```
