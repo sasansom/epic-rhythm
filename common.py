@@ -123,7 +123,7 @@ def expectancy(x, xvec):
     if sum(xvec) > 0:
         μ = weighted_mean(xvec)
         σ = weighted_sd_pop(xvec)
-        z = None if σ == 0.0 else (0 - μ) / σ
+        z = None if σ == 0.0 else (x - μ) / σ
     else:
         z = None
     return z
