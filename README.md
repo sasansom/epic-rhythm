@@ -6,6 +6,8 @@ In the sedes working directory:
 make -j4
 src/expectancy --by sedes/work,metrical_shape corpus/*.csv > expectancy.sedes-work,metrical_shape.csv
 src/expectancy --by sedes/metrical_shape corpus/*.csv > expectancy.sedes-metrical_shape.csv
+src/expectancy --by sedes/metrical_shape corpus/iliad.csv corpus/odyssey.csv corpus/homerichymns.csv corpus/theogony.csv corpus/worksanddays.csv corpus/shield.csv > expectancy.sedes-metrical_shape.archaic.csv
+src/expectancy --by sedes/metrical_shape corpus/iliad.csv corpus/odyssey.csv corpus/homerichymns.csv corpus/theogony.csv corpus/worksanddays.csv corpus/shield.csv corpus/argonautica.csv corpus/callimachushymns.csv corpus/aratus.csv corpus/theocritus.csv > expectancy.sedes-metrical_shape.archaic+hellenistic.csv
 ```
 
 In this working directory:
