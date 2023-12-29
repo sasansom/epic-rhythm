@@ -9,7 +9,7 @@ Work = collections.namedtuple("Work", ("id", "html_name"))
 KNOWN_WORKS = (
     Work("Il.", "<cite>Iliad</cite>"),
     Work("Od.", "<cite>Odyssey</cite>"),
-    Work("Hom.Hymn", "<cite>Hom.&nbsp;Hymns</cite."),
+    Work("Hom.Hymn", "<cite>Hom.&nbsp;Hymns</cite>"),
     Work("Theog.", "<cite>Theog.</cite>"),
     Work("W.D.", "<cite>WD</cite>"),
     Work("Sh.", "<cite>Shield</cite>"),
