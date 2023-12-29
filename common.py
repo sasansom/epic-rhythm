@@ -7,18 +7,18 @@ KNOWN_SEDES = ("1", "2", "2.5", "3", "4", "4.5", "5", "6", "6.5", "7", "8", "8.5
 
 Work = collections.namedtuple("Work", ("id", "html_name"))
 KNOWN_WORKS = (
-    Work("Il.", "<cite>Iliad</cite>"),
-    Work("Od.", "<cite>Odyssey</cite>"),
-    Work("Hom.Hymn", "<cite>Hom.&nbsp;Hymns</cite>"),
-    Work("Theog.", "<cite>Theog.</cite>"),
-    Work("W.D.", "<cite>WD</cite>"),
-    Work("Sh.", "<cite>Shield</cite>"),
-    Work("Argon.", "<cite>Argon.</cite>"),
-    Work("Callim.Hymn", "Callim.&nbsp;<cite>Hymns</cite>"),
-    Work("Phaen.", "<cite>Phaen.</cite>"),
+    Work("Il.", "<i>Iliad</i>"),
+    Work("Od.", "<i>Odyssey</i>"),
+    Work("Hom.Hymn", "<i>Hom.&nbsp;Hymns</i>"),
+    Work("Theog.", "<i>Theog.</i>"),
+    Work("W.D.", "<i>WD</i>"),
+    Work("Sh.", "<i>Shield</i>"),
+    Work("Argon.", "<i>Argon.</i>"),
+    Work("Callim.Hymn", "Callim.&nbsp;<i>Hymns</i>"),
+    Work("Phaen.", "<i>Phaen.</i>"),
     Work("Theoc.", "Theoc."),
     Work("Q.S.", "Quint.&nbsp;Smyrn."),
-    Work("Dion.", "<cite>Dion.</cite>"),
+    Work("Dion.", "<i>Dion.</i>"),
 )
 
 def is_metrically_permissible(shape, sedes):
