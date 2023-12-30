@@ -5,20 +5,20 @@ import math
 
 KNOWN_SEDES = ("1", "2", "2.5", "3", "4", "4.5", "5", "6", "6.5", "7", "8", "8.5", "9", "10", "10.5", "11", "12")
 
-Work = collections.namedtuple("Work", ("id", "html_name"))
+Work = collections.namedtuple("Work", ("id", "html_name", "long_html_name", "segment_html_name"))
 KNOWN_WORKS = (
-    Work("Il.", "<i>Iliad</i>"),
-    Work("Od.", "<i>Odyssey</i>"),
-    Work("Hom.Hymn", "<i>Hom.&nbsp;Hymns</i>"),
-    Work("Theog.", "<i>Theog.</i>"),
-    Work("W.D.", "<i>WD</i>"),
-    Work("Sh.", "<i>Shield</i>"),
-    Work("Argon.", "<i>Argon.</i>"),
-    Work("Callim.Hymn", "Callim.&nbsp;<i>Hymns</i>"),
-    Work("Phaen.", "<i>Phaen.</i>"),
-    Work("Theoc.", "Theoc."),
-    Work("Q.S.", "Quint.&nbsp;Smyrn."),
-    Work("Dion.", "<i>Dion.</i>"),
+    Work("Il.", "<i>Iliad</i>", "<i>Iliad</i>, Homer", "Book"),
+    Work("Od.", "<i>Odyssey</i>", "<i>Odyssey</i>, Homer", "Book"),
+    Work("Hom.Hymn", "<i>Hom.&nbsp;Hymns</i>", "<span style=\"white-space: nowrap\"><i>Homeric Hymns</i></span>", "<i>Hymn</i>"),
+    Work("Theog.", "<i>Theog.</i>", "<i>Theogony</i>, Hesiod", ""),
+    Work("W.D.", "<i>WD</i>", "<span style=\"white-space: nowrap\"><i>Works and Days</i></span>, Hesiod", ""),
+    Work("Sh.", "<i>Shield</i>", "<span style=\"white-space: nowrap\"><i>Shield of Heracles</i></span>, Hesiod", ""),
+    Work("Argon.", "<i>Argon.</i>", "<i>Argonautica</i>, <span style=\"white-space: nowrap\">Apollonius Rhodius</span>", "Book"),
+    Work("Callim.Hymn", "Callim.&nbsp;<i>Hymns</i>", "<i>Hymns</i>, Callimachus", "<i>Hymn</i>"),
+    Work("Phaen.", "<i>Phaen.</i>", "<i>Phaenomena</i>, <span style=\"white-space: nowrap\">Aratus Solensis</span>", ""),
+    Work("Theoc.", "Theoc.", "<i>Idylls</i>, Theocritus", "<i>Idyll</i>"),
+    Work("Q.S.", "Quint.&nbsp;Smyrn.", "<span style=\"white-space: nowrap\"><i>Fall of Troy</i></span>, <span style=\"white-space: nowrap\">Quintus Smyrnaeus</span>", "Book"),
+    Work("Dion.", "<i>Dion.</i>", "<i>Dionysiaca</i>, <span style=\"white-space: nowrap\">Nonnus of Panopolis</span>", "Book"),
 )
 
 def is_metrically_permissible(shape, sedes):

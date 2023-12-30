@@ -17,4 +17,5 @@ In this working directory:
 ./summary-table.py < expectancy.sedes-metrical_shape.csv > summary-table.html
 ./table-ssl.py < expectancy.sedes-work,metrical_shape.csv > table-ssl.html
 Rscript unexpected.r
+./unexpected-table.py < joined.sedes-metrical_shape.csv > unexpected-table.html
 ```
