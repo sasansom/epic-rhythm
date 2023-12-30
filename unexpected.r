@@ -29,3 +29,9 @@ cat(sprintf("Percentage of unexpected words %d/%d = %.2f%%\n", num_unexpected_il
 cat(sprintf("Unexpected words per book %d/%d = %.2f\n", num_unexpected_iliad, 24, num_unexpected_iliad / 24))
 cat(sprintf("Average words per book %d/%d = %.2f\n", num_words_iliad, 24, num_words_iliad / 24))
 print(iliad %>% group_by(book_n) %>% summarize(num_words = n(), num_unexpected = sum(z <= Z_THRESHOLD, na.rm = TRUE), pct_unexpected = num_unexpected / num_words * 100) %>% arrange(pct_unexpected), n = 100)
+
+cat("\n")
+
+cat("Longer poems\n")
+
+print(data %>% group_by(work, book_n) %>% summarize(num_words = n(), num_unexpected = sum(z <= Z_THRESHOLD, na.rm = TRUE), pct_unexpected = num_unexpected / num_words * 100) %>% filter(num_words > 1000) %>% arrange(pct_unexpected), n = 500)
