@@ -97,7 +97,7 @@ for sedes in map(float, common.KNOWN_SEDES):
     if common.is_metrically_permissible(SHAPE, sedes):
         M[(SHAPE, "total", sedes)] = Entry(0, 0)
 
-for work in common.KNOWN_WORKS + (common.Work("total", "TOTAL"),):
+for work in common.KNOWN_WORKS + (common.Work("total", "TOTAL", "TOTAL", "Book"),):
     print(common.html_start_tag("tr"))
     print(
         common.html_start_tag_style("td", STYLE_HEADER + STYLE_LEFT) +
