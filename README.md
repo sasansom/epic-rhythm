@@ -1,5 +1,5 @@
 https://github.com/sasansom/sedes
-8fe7296ab179d1e0e25de75bbce406cdc4ca7290
+d6435a798ae02bff8af4c4fba84c11d22689cc43
 
 In the sedes working directory:
 ```
