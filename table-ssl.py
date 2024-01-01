@@ -149,12 +149,15 @@ for work in common.KNOWN_WORKS + (common.Work("total", "TOTAL", "TOTAL", "Book")
                 html.escape(f"{entry.x:,}") +
                 common.html_end_tag("span")
             )
-            contents += (
-                common.html_start_tag("br") +
-                common.html_start_tag_style("span", STYLE_Z) +
-                html.escape("{:+.03f}".format(entry.z).replace("-", "−") if entry.z is not None else "\u200c") +
-                common.html_end_tag("span")
-            )
+            contents += common.html_start_tag("br")
+            if entry.z is not None:
+                contents += (
+                    common.html_start_tag_style("span", STYLE_Z) +
+                    html.escape("{:+.03f}".format(entry.z).replace("-", "−")) +
+                    common.html_end_tag("span")
+                )
+            else:
+                contents += "\u200c"
             styles.extend(common.z_css(entry.z))
             styles.extend(STYLE_CELL)
             styles.extend(STYLE_RIGHT)
