@@ -137,14 +137,16 @@ for work in common.KNOWN_WORKS + (common.Work("total", "TOTAL", "TOTAL", "Book")
             if work.id != "total":
                 M[(SHAPE, "total", sedes)] = Entry(M[(SHAPE, "total", sedes)].x + entry.x, 0)
             contents = ""
-            contents += (
-                common.html_start_tag_style("span", STYLE_PERCENT) +
-                html.escape(f"({entry.x/sum(xvec)*100:.1f}%)") +
-                common.html_end_tag("span")
-            )
+            if sum(xvec) > 0:
+                contents += (
+                    common.html_start_tag_style("span", STYLE_PERCENT) +
+                    html.escape(f"({entry.x/sum(xvec)*100:.1f}%)") +
+                    common.html_end_tag("span") +
+                    "\xa0"
+                )
             contents += (
                 common.html_start_tag_style("span", STYLE_X) +
-                html.escape(f" {entry.x:,}") +
+                html.escape(f"{entry.x:,}") +
                 common.html_end_tag("span")
             )
             contents += (
