@@ -95,3 +95,9 @@ p <- ggplot(archaic_data) +
 		title = bquote("Unexpected shapes (" * italic(z) ~ "≤" ~ .(gsub("-", "−", sprintf("%-.1f", Z_THRESHOLD))) * ") per window of 50 lines, cumulative, Archaic corpus")
 	)
 ggsave("unexpected-window-50-cumul.archaic.png", p, width = 7.5, height = 3, dpi = 200)
+
+print(data %>%
+	group_by(work, book_n) %>%
+	summarize(mean_unexpected_50 = mean(unexpected_50, na.rm = TRUE), era = first(era), .groups = "drop") %>%
+	arrange(mean_unexpected_50)
+, n = 500)
