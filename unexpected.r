@@ -46,3 +46,15 @@ cat("\n")
 cat("Longer poems, by book\n")
 
 print(data %>% group_by(work, book_n) %>% summarize(num_words = n(), num_unexpected = sum(is_unexpected, na.rm = TRUE), pct_unexpected = num_unexpected / num_words * 100, era = first(era), .groups = "drop") %>% filter(num_words > 1000) %>% arrange(pct_unexpected), n = 500)
+
+cat("\n")
+
+cat("By work\n")
+
+print(data %>% group_by(work) %>% summarize(num_words = n(), num_unexpected = sum(is_unexpected, na.rm = TRUE), pct_unexpected = num_unexpected / num_words * 100, era = first(era), .groups = "drop") %>% filter(num_words > 1000) %>% arrange(pct_unexpected), n = 500)
+
+cat("\n")
+
+cat("By era\n")
+
+print(data %>% group_by(era) %>% summarize(num_words = n(), num_unexpected = sum(is_unexpected, na.rm = TRUE), pct_unexpected = num_unexpected / num_words * 100, era = first(era), .groups = "drop") %>% filter(num_words > 1000) %>% arrange(pct_unexpected), n = 500)
