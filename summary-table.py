@@ -18,7 +18,7 @@ STYLE_Z = (
     ("font-size", "7pt"),
 )
 STYLE_PERCENT = (
-    ("font-size", "6pt"),
+    ("font-size", "7pt"),
 )
 STYLE_CELL = (
     ("font-size", "8pt"),
@@ -124,18 +124,20 @@ for shape in common.shapes_gen():
             except KeyError:
                 pass
             contents = ""
-            if sum(xvec) > 0:
-                contents += (
-                    common.html_start_tag_style("span", STYLE_PERCENT) +
-                    html.escape(f"({entry.x/sum(xvec)*100:.1f}%)") +
-                    common.html_end_tag("span") +
-                    "\xa0"
-                )
             contents += (
                 common.html_start_tag_style("span", STYLE_X) +
                 html.escape(f"{entry.x:,}") +
                 common.html_end_tag("span")
             )
+            contents += common.html_start_tag("br")
+            if sum(xvec) > 0:
+                contents += (
+                    common.html_start_tag_style("span", STYLE_PERCENT) +
+                    html.escape(f"({entry.x/sum(xvec)*100:.1f}%)") +
+                    common.html_end_tag("span")
+                )
+            else:
+                contents += "\u200c"
             contents += (
                 common.html_start_tag("br") +
                 common.html_start_tag_style("span", STYLE_Z) +
