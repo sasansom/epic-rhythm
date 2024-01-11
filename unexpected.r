@@ -60,44 +60,46 @@ cat("By era\n")
 
 print(data %>% group_by(era) %>% summarize(num_words = n(), num_unexpected = sum(is_unexpected, na.rm = TRUE), pct_unexpected = num_unexpected / num_words * 100, era = first(era), .groups = "drop") %>% filter(num_words > 1000) %>% arrange(pct_unexpected), n = 500)
 
+WINDOW_SIZE <- 50
+
 cat("\n")
 
-cat("Unexpected shapes per window of 50 words, archaic corpus\n")
+cat(sprintf("Unexpected shapes per window of %d words, archaic corpus\n", WINDOW_SIZE))
 
 data <- data %>%
 	group_by(work, book_n) %>%
-	mutate(unexpected_50 = roll_sum(is_unexpected, 50, align = "left", fill = NA)) %>%
+	mutate(unexpected_window = roll_sum(is_unexpected, WINDOW_SIZE, align = "left", fill = NA)) %>%
 	ungroup()
 
 archaic_data <- filter(data, era == "archaic")
-summary(archaic_data$unexpected_50)
-x <- table(archaic_data$unexpected_50)
+summary(archaic_data$unexpected_window)
+x <- table(archaic_data$unexpected_window)
 x
 x / sum(x) * 100
 cumsum(x) / sum(x) * 100
 p <- ggplot(archaic_data) +
-	geom_bar(aes(unexpected_50)) +
+	geom_bar(aes(unexpected_window)) +
 	scale_x_continuous(breaks = 0:10) +
 	scale_y_continuous(minor_breaks = waiver()) +
 	labs(
 		x = "Number of unexpected shapes in window",
 		y = "Number of distinct windows",
-		title = bquote("Unexpected shapes (" * italic(z) ~ "≤" ~ .(gsub("-", "−", sprintf("%-.1f", Z_THRESHOLD))) * ") per window of 50 lines, Archaic corpus")
+		title = bquote("Unexpected shapes (" * italic(z) ~ "≤" ~ .(gsub("-", "−", sprintf("%-.1f", Z_THRESHOLD))) * ") per window of" ~ WINDOW_SIZE ~ "lines, Archaic corpus")
 	)
-ggsave("unexpected-window-50.archaic.png", p, width = 7.5, height = 3, dpi = 200)
+ggsave(sprintf("unexpected-window-%d.archaic.png", WINDOW_SIZE), p, width = 7.5, height = 3, dpi = 200)
 p <- ggplot(archaic_data) +
-	stat_ecdf(aes(unexpected_50), geom = "bar") +
+	stat_ecdf(aes(unexpected_window), geom = "bar") +
 	scale_x_continuous(breaks = 0:10) +
 	scale_y_continuous(n.breaks = 11, labels = scales::percent, minor_breaks = NULL) +
 	labs(
 		x = "Number of unexpected shapes in window",
 		y = "Number of distinct windows",
-		title = bquote("Unexpected shapes (" * italic(z) ~ "≤" ~ .(gsub("-", "−", sprintf("%-.1f", Z_THRESHOLD))) * ") per window of 50 lines, cumulative, Archaic corpus")
+		title = bquote("Unexpected shapes (" * italic(z) ~ "≤" ~ .(gsub("-", "−", sprintf("%-.1f", Z_THRESHOLD))) * ") per window of" ~ WINDOW_SIZE ~ "lines, cumulative, Archaic corpus")
 	)
-ggsave("unexpected-window-50-cumul.archaic.png", p, width = 7.5, height = 3, dpi = 200)
+ggsave(sprintf("unexpected-window-%d-cumul.archaic.png", WINDOW_SIZE), p, width = 7.5, height = 3, dpi = 200)
 
 print(data %>%
 	group_by(work, book_n) %>%
-	summarize(mean_unexpected_50 = mean(unexpected_50, na.rm = TRUE), era = first(era), .groups = "drop") %>%
-	arrange(mean_unexpected_50)
+	summarize(mean_unexpected_window = mean(unexpected_window, na.rm = TRUE), era = first(era), .groups = "drop") %>%
+	arrange(mean_unexpected_window)
 , n = 500)
