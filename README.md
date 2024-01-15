@@ -1,27 +1,38 @@
 https://github.com/sasansom/sedes
 d6435a798ae02bff8af4c4fba84c11d22689cc43
 
-In the sedes working directory:
-```
-make -j4
-WORKS_ARCHAIC="iliad odyssey homerichymns theogony worksanddays shield"
-WORKS_HELLENISTIC="argonautica callimachushymns aratus theocritus"
-WORKS_IMPERIAL="quintussmyrnaeus nonnusdionysiaca"
-src/expectancy --by sedes/work,metrical_shape $(for work in $WORKS_ARCHAIC $WORKS_HELLENISTIC $WORKS_IMPERIAL; do echo "corpus/$work.csv"; done) > expectancy.sedes-work,metrical_shape.csv
-src/expectancy --by sedes/metrical_shape $(for work in $WORKS_ARCHAIC; do echo "corpus/$work.csv"; done) > expectancy.sedes-metrical_shape.archaic.csv
-src/expectancy --by sedes/metrical_shape $(for work in $WORKS_ARCHAIC $WORKS_HELLENISTIC; do echo "corpus/$work.csv"; done) > expectancy.sedes-metrical_shape.archaic+hellenistic.csv
-src/expectancy --by sedes/metrical_shape $(for work in $WORKS_ARCHAIC $WORKS_HELLENISTIC $WORKS_IMPERIAL; do echo "corpus/$work.csv"; done) > expectancy.sedes-metrical_shape.csv
-(src/join-expectancy --by sedes/metrical_shape $(for work in $WORKS_ARCHAIC; do echo "corpus/$work.csv"; done) expectancy.sedes-metrical_shape.archaic.csv; src/join-expectancy --by sedes/metrical_shape $(for work in $WORKS_HELLENISTIC; do echo "corpus/$work.csv"; done) expectancy.sedes-metrical_shape.archaic+hellenistic.csv | sed -e '1d'; src/join-expectancy --by sedes/metrical_shape $(for work in $WORKS_IMPERIAL; do echo "corpus/$work.csv"; done) expectancy.sedes-metrical_shape.csv | sed -e '1d') > joined.sedes-metrical_shape.csv
-```
+Let the `$SEDES` environment variable point to the sedes clone.
+Let this clone be the current working directory.
 
-In this working directory:
-```
-./tables.py < expectancy.sedes-work,metrical_shape.csv > tables.html
-./summary-table.py < expectancy.sedes-metrical_shape.csv > summary-table.html
-./table-ssl.py < expectancy.sedes-work,metrical_shape.csv > table-ssl.html
-Rscript unexpected.r
-./unexpected-table.py < joined.sedes-metrical_shape.csv > unexpected-table.html
-```
+1. Generate original SEDES corpus/*.csv files.
+   ```
+   SEDES=/path/to/sedes
+   (cd "$SEDES" && source venv/bin/activate && make clean && make -j4)
+   ```
+1. Merge appositive groups in the original files to make corpus-appositive/*.csv files.
+   ```
+   mkdir -p corpus-appositive/
+   for work_csv in "$SEDES"/corpus/*.csv; do Rscript merge-appositives.r "$work_csv" > "corpus-appositive/$(basename "$work_csv")"; done
+   ```
+1. Compute expectancy of the appositive-group files.
+   ```
+   WORKS_ARCHAIC="iliad odyssey homerichymns theogony worksanddays shield"
+   WORKS_HELLENISTIC="argonautica callimachushymns aratus theocritus"
+   WORKS_IMPERIAL="quintussmyrnaeus nonnusdionysiaca"
+   "$SEDES/src/expectancy" --by sedes/work,metrical_shape $(for work in $WORKS_ARCHAIC $WORKS_HELLENISTIC $WORKS_IMPERIAL; do echo "corpus-appositive/$work.csv"; done) > expectancy.sedes-work,metrical_shape.csv
+   "$SEDES/src/expectancy" --by sedes/metrical_shape $(for work in $WORKS_ARCHAIC; do echo "corpus-appositive/$work.csv"; done) > expectancy.sedes-metrical_shape.archaic.csv
+   "$SEDES/src/expectancy" --by sedes/metrical_shape $(for work in $WORKS_ARCHAIC $WORKS_HELLENISTIC; do echo "corpus-appositive/$work.csv"; done) > expectancy.sedes-metrical_shape.archaic+hellenistic.csv
+   "$SEDES/src/expectancy" --by sedes/metrical_shape $(for work in $WORKS_ARCHAIC $WORKS_HELLENISTIC $WORKS_IMPERIAL; do echo "corpus-appositive/$work.csv"; done) > expectancy.sedes-metrical_shape.csv
+   ("$SEDES/src/join-expectancy" --by sedes/metrical_shape $(for work in $WORKS_ARCHAIC; do echo "corpus-appositive/$work.csv"; done) expectancy.sedes-metrical_shape.archaic.csv; "$SEDES/src/join-expectancy" --by sedes/metrical_shape $(for work in $WORKS_HELLENISTIC; do echo "corpus-appositive/$work.csv"; done) expectancy.sedes-metrical_shape.archaic+hellenistic.csv | sed -e '1d'; "$SEDES/src/join-expectancy" --by sedes/metrical_shape $(for work in $WORKS_IMPERIAL; do echo "corpus-appositive/$work.csv"; done) expectancy.sedes-metrical_shape.csv | sed -e '1d') > joined.sedes-metrical_shape.csv
+   ```
+1. Generate tables and stats outputs.
+   ```
+   ./tables.py < expectancy.sedes-work,metrical_shape.csv > tables.html
+   ./summary-table.py < expectancy.sedes-metrical_shape.csv > summary-table.html
+   ./table-ssl.py < expectancy.sedes-work,metrical_shape.csv > table-ssl.html
+   ./unexpected-table.py < joined.sedes-metrical_shape.csv > unexpected-table.html
+   Rscript unexpected.r
+   ```
 
 ## Known bugs
 
