@@ -5,15 +5,24 @@
 # tei2csv. The `word` and `lemma` columns in merged rows are joined by spaces.
 # The `metrical_shape` columns are concatenated.
 
+library("stringi")
 library("tidyverse")
 library("optparse")
 
+ALWAYS_PREPOSITIVE_WORDS <- c(
+	"ἐν"
+)
+
+ALWAYS_POSTPOSITIVE_WORDS <- c(
+
+)
+
 is_prepositive <- function(word) {
-	word == "ἐν"
+	word %in% stri_trans_nfd(ALWAYS_PREPOSITIVE_WORDS)
 }
 
 is_postpositive <- function(word) {
-	FALSE
+	word %in% stri_trans_nfd(ALWAYS_POSTPOSITIVE_WORDS)
 }
 
 opts <- parse_args2(OptionParser())
