@@ -86,7 +86,7 @@ for shape in common.shapes_gen():
         for sedes in map(float, common.KNOWN_SEDES):
             entry = M.get((shape, work.id, sedes))
             if not common.is_metrically_permissible(shape, sedes):
-                assert entry is None, entry
+                assert entry is None, (shape, sedes, entry)
                 print("<td class=impermissible>✖</td>")
             else:
                 if entry is None:
