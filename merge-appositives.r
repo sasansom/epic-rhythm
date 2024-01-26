@@ -359,4 +359,4 @@ data <- data |>
 		word_n
 	)
 
-write_csv(data, stdout())
+write_csv(data, stdout(), na = "")
