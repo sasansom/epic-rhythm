@@ -296,13 +296,23 @@ ALWAYS_POSTPOSITIVE_WORDS <- c(
 
 )
 
-is_prepositive <- function(word) {
+always_prepositive <- function(word) {
 	word %in% stri_trans_nfd(ALWAYS_PREPOSITIVE_WORDS)
 }
 
-is_postpositive <- function(word) {
+always_postpositive <- function(word) {
 	word %in% stri_trans_nfd(ALWAYS_POSTPOSITIVE_WORDS)
 }
+
+# Load the manual list of appositive instances (with the default for rows not
+# present being "no").
+exceptional_default_no <- read_csv("exceptional-appositives-default-no.csv", na = c(""), col_types = cols(
+	work = col_factor(),
+	book_n = col_character(),
+	line_n = col_character(),
+	word_n = col_integer(),
+	appositive = col_factor()
+))
 
 opts <- parse_args2(OptionParser())
 
@@ -315,6 +325,28 @@ data <- lapply(opts$args, read_csv, na = c(""), col_types = cols(
 	bind_rows() |>
 	mutate(metrical_shape = replace_na(metrical_shape, ""))
 
+# Sanity check: every row in the list of hardcoded exceptional appositives
+# actually matches something in the data (at least among the works present in
+# the data).
+unmatched <- anti_join(
+	exceptional_default_no |> filter(work %in% unique(data$work)),
+	data,
+	by = c("work", "book_n", "line_n", "word_n", "word", "lemma")
+)
+if (nrow(unmatched) != 0) {
+	print(unmatched)
+	cat("Unmatched exceptional appositives.\n")
+	stop()
+}
+# Sanity check: only expected appositive types in the hardcoded exceptional
+# appositives.
+weird <- filter(exceptional_default_no, !(appositive %in% c("prepositive", "postpositive", "bidirectional")))
+if (nrow(weird) != 0) {
+	print(weird)
+	cat("Unknown appositive notations.\n")
+	stop()
+}
+
 data <- data |>
 	group_by(work, book_n) |>
 	mutate(unique_line_n = cumsum(
@@ -323,10 +355,15 @@ data <- data |>
 	) |>
 	ungroup() |>
 
-	mutate(
-		is_prepositive = is_prepositive(word),
-		is_postpositive = is_postpositive(word),
+	left_join(
+		exceptional_default_no,
+		by = c("work", "book_n", "line_n", "word_n", "word", "lemma")
 	) |>
+	mutate(
+		is_prepositive = appositive %in% c("prepositive", "bidirectional") | always_prepositive(word),
+		is_postpositive = appositive %in% c("postpositive", "bidirectional") | always_postpositive(word),
+	) |>
+	select(!appositive) |>
 	group_by(work, book_n, unique_line_n) |>
 	mutate(word_n = word_n
 		# Merge each prepositive word with the next word by
