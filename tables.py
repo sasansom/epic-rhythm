@@ -56,14 +56,24 @@ td.impermissible {
 """)
 
 for shape in common.shapes_gen():
-    if len(shape) > 8:
+    if len(shape) > 12:
         break
 
     if not common.is_metrically_permissible_anywhere(shape):
-        print("<!--")
         for work in common.KNOWN_WORKS:
             for sedes in map(float, common.KNOWN_SEDES):
                 assert M.get((shape, work.id, sedes)) is None, (shape, work.id, sedes)
+        continue
+
+    for work in common.KNOWN_WORKS:
+        for sedes in map(float, common.KNOWN_SEDES):
+            if M.get((shape, work.id, sedes)) is not None:
+                break
+        else:
+            continue
+        break
+    else:
+        continue
 
     print(f"<h2 id=\"shape-{html.escape(shape)}\">{html.escape(' '.join(shape) if shape else '(empty shape)')}</h2>")
 
@@ -106,9 +116,6 @@ for shape in common.shapes_gen():
         print(f"<td><span class=x>{html.escape('{:,}'.format(sum(xvec)))}</span></td>")
         print("</tr>")
     print("</table>")
-
-    if not common.is_metrically_permissible_anywhere(shape):
-        print("-->")
 assert len(M) == 0, M
 
 print("""\
