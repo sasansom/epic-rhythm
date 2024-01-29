@@ -316,11 +316,18 @@ data <- lapply(opts$args, read_csv, na = c(""), col_types = cols(
 	mutate(metrical_shape = replace_na(metrical_shape, ""))
 
 data <- data |>
+	group_by(work, book_n) |>
+	mutate(unique_line_n = cumsum(
+		replace_na(line_n, "") != replace_na(coalesce(lag(line_n), line_n), "") |
+		word_n <= coalesce(lag(word_n), word_n))
+	) |>
+	ungroup() |>
+
 	mutate(
 		is_prepositive = is_prepositive(word),
 		is_postpositive = is_postpositive(word),
 	) |>
-	group_by(work, book_n, line_n) |>
+	group_by(work, book_n, unique_line_n) |>
 	mutate(word_n = word_n
 		# Merge each prepositive word with the next word by
 		# decrementing the word_n of all the words that follow it in
@@ -343,7 +350,7 @@ data <- data |>
 # have been made identical in a line in the previous step.
 data <- data |>
 	select(!c(is_prepositive, is_postpositive)) |>
-	group_by(work, book_n, line_n, word_n) |>
+	group_by(work, book_n, unique_line_n, word_n) |>
 	summarize(
 		word = paste0(word, collapse = " "),
 		lemma = paste0(lemma, collapse = " "),
@@ -358,10 +365,11 @@ data <- data |>
 		# Deal with numeric and non-numeric book names.
 		replace_na(as.integer(str_extract(book_n, "^\\d+")), 0),
 		replace_na(str_extract(book_n, "[^\\d]*$"), ""),
-		# Deal with line numbers that may have a non-numeric suffix.
-		replace_na(as.integer(str_extract(line_n, "^\\d+")), 0),
+		unique_line_n,
 		replace_na(str_extract(line_n, "[^\\d]*$"), ""),
 		word_n
-	)
+	) |>
+	select(!unique_line_n) |>
+	relocate(work, book_n, line_n, word_n)
 
 write_csv(data, stdout(), na = "")
