@@ -304,9 +304,8 @@ always_postpositive <- function(word) {
 	word %in% stri_trans_nfd(ALWAYS_POSTPOSITIVE_WORDS)
 }
 
-# Load the manual list of appositive instances (with the default for rows not
-# present being "no").
-exceptional_default_no <- read_csv("exceptional-appositives-default-no.csv", na = c(""), col_types = cols(
+# Load the manual list of appositive instances.
+exceptional <- read_csv("exceptional-appositives.csv", na = c(""), col_types = cols(
 	work = col_factor(),
 	book_n = col_character(),
 	line_n = col_character(),
@@ -329,7 +328,7 @@ data <- lapply(opts$args, read_csv, na = c(""), col_types = cols(
 # actually matches something in the data (at least among the works present in
 # the data).
 unmatched <- anti_join(
-	exceptional_default_no |> filter(work %in% unique(data$work)),
+	exceptional |> filter(work %in% unique(data$work)),
 	data,
 	by = c("work", "book_n", "line_n", "word_n", "word", "lemma")
 )
@@ -340,7 +339,7 @@ if (nrow(unmatched) != 0) {
 }
 # Sanity check: only expected appositive types in the hardcoded exceptional
 # appositives.
-weird <- filter(exceptional_default_no, !(appositive %in% c("prepositive", "postpositive", "bidirectional")))
+weird <- filter(exceptional, !(appositive %in% c("no", "prepositive", "postpositive", "bidirectional")))
 if (nrow(weird) != 0) {
 	print(weird)
 	cat("Unknown appositive notations.\n")
@@ -356,7 +355,7 @@ data <- data |>
 	ungroup() |>
 
 	left_join(
-		exceptional_default_no,
+		exceptional,
 		by = c("work", "book_n", "line_n", "word_n", "word", "lemma")
 	) |>
 	mutate(
