@@ -322,12 +322,17 @@ data <- data |>
 	) |>
 	group_by(work, book_n, line_n) |>
 	mutate(word_n = word_n
-		# Merge postpositive with the previous word by decrementing its
-		# word_n (and that of all words in the line that follow).
-		- cumsum(is_postpositive)
-		# Merge prepositive with the following word by decrementing the
-		# word_n of the words that follow it in the line.
+		# Merge each prepositive word with the next word by
+		# decrementing the word_n of all the words that follow it in
+		# the line.
 		- cumsum(lag(is_prepositive, default = FALSE))
+		# Merge each postpositive word with the previous word by
+		# decrementing the word_n of the postpositive word (and that of
+		# all words that follow it in the line). But if the previous
+		# word is prepositive, the words are already going to be
+		# joined, so for the moment pretend this word is not
+		# postpositive.
+		- cumsum(word_n > 1 & is_postpositive & !lag(is_prepositive, default = FALSE))
 	) |>
 	ungroup()
 
