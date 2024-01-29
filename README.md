@@ -1,5 +1,5 @@
 https://github.com/sasansom/sedes
-d6435a798ae02bff8af4c4fba84c11d22689cc43
+2ec2a1240e75acec2588838f18e18220ecced9f1
 
 Let the `$SEDES` environment variable point to the sedes clone.
 Let this clone be the current working directory.
