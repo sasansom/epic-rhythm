@@ -360,8 +360,8 @@ data <- data |>
 		by = c("work", "book_n", "line_n", "word_n", "word", "lemma")
 	) |>
 	mutate(
-		is_prepositive = appositive %in% c("prepositive", "bidirectional") | always_prepositive(word),
-		is_postpositive = appositive %in% c("postpositive", "bidirectional") | always_postpositive(word),
+		is_prepositive = ifelse(!is.na(appositive), appositive %in% c("prepositive", "bidirectional"), always_prepositive(word)),
+		is_postpositive = ifelse(!is.na(appositive), appositive %in% c("postpositive", "bidirectional"), always_postpositive(word)),
 	) |>
 	select(!appositive) |>
 	group_by(work, book_n, unique_line_n) |>
