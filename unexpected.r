@@ -84,7 +84,7 @@ p <- ggplot(archaic_data) +
 	labs(
 		x = "Number of unexpected shapes in window",
 		y = "Number of distinct windows",
-		title = bquote("Unexpected shapes (" * italic(z) ~ "≤" ~ .(gsub("-", "−", sprintf("%-.1f", Z_THRESHOLD))) * ") per window of" ~ WINDOW_SIZE ~ "lines, Archaic corpus")
+		title = bquote("Unexpected shapes (" * italic(z) ~ "≤" ~ .(gsub("-", "−", sprintf("%-.1f", Z_THRESHOLD))) * ") per window of" ~ .(WINDOW_SIZE) ~ "lines, Archaic corpus")
 	)
 ggsave(sprintf("unexpected-window-%d.archaic.png", WINDOW_SIZE), p, width = 7.5, height = 3, dpi = 200)
 p <- ggplot(archaic_data) +
@@ -94,7 +94,7 @@ p <- ggplot(archaic_data) +
 	labs(
 		x = "Number of unexpected shapes in window",
 		y = "Number of distinct windows",
-		title = bquote("Unexpected shapes (" * italic(z) ~ "≤" ~ .(gsub("-", "−", sprintf("%-.1f", Z_THRESHOLD))) * ") per window of" ~ WINDOW_SIZE ~ "lines, cumulative, Archaic corpus")
+		title = bquote("Unexpected shapes (" * italic(z) ~ "≤" ~ .(gsub("-", "−", sprintf("%-.1f", Z_THRESHOLD))) * ") per window of" ~ .(WINDOW_SIZE) ~ "lines, cumulative, Archaic corpus")
 	)
 ggsave(sprintf("unexpected-window-%d-cumul.archaic.png", WINDOW_SIZE), p, width = 7.5, height = 3, dpi = 200)
 
