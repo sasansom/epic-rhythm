@@ -60,7 +60,7 @@ cat("By era\n")
 
 print(data %>% group_by(era) %>% summarize(num_words = n(), num_unexpected = sum(is_unexpected, na.rm = TRUE), pct_unexpected = num_unexpected / num_words * 100, era = first(era), .groups = "drop") %>% filter(num_words > 1000) %>% arrange(pct_unexpected), n = 500)
 
-WINDOW_SIZE <- 179
+WINDOW_SIZE <- 181
 
 cat("\n")
 
