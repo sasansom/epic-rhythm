@@ -31,7 +31,7 @@ Let this clone be the current working directory.
    ./summary-table.py < expectancy.sedes-metrical_shape.csv > summary-table.html
    ./table-ssl.py < expectancy.sedes-work,metrical_shape.csv > table-ssl.html
    ./unexpected-table.py < joined.sedes-metrical_shape.csv > unexpected-table.html
-   Rscript unexpected.r
+   Rscript unexpected.r > unexpected.txt
    ```
 
 ## Known bugs

@@ -1,6 +1,9 @@
 library("tidyverse")
 library("RcppRoll")
 
+options(width = 10000)
+options(crayon.enabled = FALSE) # Disable ANSI escapes for text output.
+
 Z_THRESHOLD <- -2.0
 
 data <- read_csv("joined.sedes-metrical_shape.csv", col_types = cols(
