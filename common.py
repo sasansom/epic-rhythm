@@ -22,7 +22,7 @@ KNOWN_WORKS = (
 )
 
 def is_metrically_permissible(shape, sedes):
-    """Returns True if shape is metrically permitted at sedes."""
+    """Returns True iff shape is metrically permitted at sedes."""
     s = (sedes - 1) * 2
     if s != int(s) or s < 0 or s > 24:
         raise ValueError("invalid sedes {sedes}")
