@@ -1,0 +1,387 @@
+z threshold is <= -2.00
+Percentage of unexpected words 13160/399327 = 3.30%
+
+Iliad
+Percentage of unexpected words 3551/88796 = 4.00%
+Unexpected words per book 3551/24 = 147.96
+Average words per book 88796/24 = 3699.83
+# A tibble: 24 × 5
+   book_n num_words num_unexpected pct_unexpected era    
+   <chr>      <int>          <int>          <dbl> <fct>  
+ 1 10          3303            108           3.27 archaic
+ 2 3           2589             87           3.36 archaic
+ 3 16          4903            167           3.41 archaic
+ 4 24          4627            161           3.48 archaic
+ 5 17          4284            155           3.62 archaic
+ 6 13          4757            174           3.66 archaic
+ 7 11          4825            183           3.79 archaic
+ 8 15          4231            164           3.88 archaic
+ 9 1           3518            137           3.89 archaic
+10 19          2404             94           3.91 archaic
+11 9           3960            159           4.02 archaic
+12 20          2857            116           4.06 archaic
+13 8           3132            128           4.09 archaic
+14 6           2974            123           4.14 archaic
+15 7           2709            113           4.17 archaic
+16 22          2993            125           4.18 archaic
+17 21          3504            147           4.20 archaic
+18 5           5152            218           4.23 archaic
+19 18          3544            150           4.23 archaic
+20 12          2628            112           4.26 archaic
+21 4           3030            134           4.42 archaic
+22 14          2981            134           4.50 archaic
+23 23          5041            235           4.66 archaic
+24 2           4850            227           4.68 archaic
+
+Longer poems, by book
+# A tibble: 126 × 6
+    work        book_n num_words num_unexpected pct_unexpected era        
+    <chr>       <chr>      <int>          <int>          <dbl> <fct>      
+  1 Callim.Hymn 3           1483             20           1.35 hellenistic
+  2 Callim.Hymn 4           1766             31           1.76 hellenistic
+  3 Dion.       34          1840             33           1.79 imperial   
+  4 Dion.       21          1725             31           1.80 imperial   
+  5 Dion.       43          2222             40           1.80 imperial   
+  6 Dion.       27          1717             31           1.81 imperial   
+  7 Argon.      4           9761            179           1.83 hellenistic
+  8 Dion.       6           1963             37           1.88 imperial   
+  9 Dion.       45          1801             35           1.94 imperial   
+ 10 Argon.      1           7375            145           1.97 hellenistic
+ 11 Dion.       36          2414             48           1.99 imperial   
+ 12 Dion.       35          1996             41           2.05 imperial   
+ 13 Argon.      3           7827            164           2.10 hellenistic
+ 14 Dion.       22          2050             43           2.10 imperial   
+ 15 Dion.       18          1887             41           2.17 imperial   
+ 16 Dion.       40          2995             66           2.20 imperial   
+ 17 Dion.       32          1521             35           2.30 imperial   
+ 18 Dion.       3           2282             53           2.32 imperial   
+ 19 Dion.       11          2754             64           2.32 imperial   
+ 20 Dion.       28          1677             39           2.33 imperial   
+ 21 Dion.       30          1675             39           2.33 imperial   
+ 22 Dion.       9           1629             38           2.33 imperial   
+ 23 Dion.       38          2256             53           2.35 imperial   
+ 24 Dion.       39          2080             49           2.36 imperial   
+ 25 Dion.       1           2789             66           2.37 imperial   
+ 26 Dion.       17          2028             48           2.37 imperial   
+ 27 Dion.       14          2184             52           2.38 imperial   
+ 28 Dion.       20          2068             50           2.42 imperial   
+ 29 Dion.       41          2178             54           2.48 imperial   
+ 30 Dion.       23          1649             41           2.49 imperial   
+ 31 Dion.       13          2931             74           2.52 imperial   
+ 32 Dion.       48          5045            128           2.54 imperial   
+ 33 Dion.       2           3614             92           2.55 imperial   
+ 34 Argon.      2           7064            180           2.55 hellenistic
+ 35 Dion.       5           3195             83           2.60 imperial   
+ 36 Dion.       44          1614             42           2.60 imperial   
+ 37 Dion.       15          2220             58           2.61 imperial   
+ 38 Dion.       7           1899             50           2.63 imperial   
+ 39 Dion.       37          4016            106           2.64 imperial   
+ 40 Dion.       26          1930             51           2.64 imperial   
+ 41 Dion.       10          2253             60           2.66 imperial   
+ 42 Dion.       25          2981             80           2.68 imperial   
+ 43 Dion.       16          2149             58           2.70 imperial   
+ 44 Od.         10          3222             87           2.70 archaic    
+ 45 Dion.       4           2403             66           2.75 imperial   
+ 46 Dion.       47          3862            108           2.80 imperial   
+ 47 Dion.       8           2211             62           2.80 imperial   
+ 48 Dion.       19          1802             51           2.83 imperial   
+ 49 Dion.       24          1679             48           2.86 imperial   
+ 50 Theoc.      22          1271             38           2.99 hellenistic
+ 51 Dion.       42          2858             88           3.08 imperial   
+ 52 Dion.       12          2071             64           3.09 imperial   
+ 53 Dion.       29          1953             61           3.12 imperial   
+ 54 Dion.       33          1980             64           3.23 imperial   
+ 55 Od.         9           3217            105           3.26 archaic    
+ 56 Phaen.      1           6149            201           3.27 hellenistic
+ 57 Il.         10          3303            108           3.27 archaic    
+ 58 Od.         2           2495             83           3.33 archaic    
+ 59 Q.S.        14          3677            123           3.35 imperial   
+ 60 Il.         3           2589             87           3.36 archaic    
+ 61 Q.S.        9           3105            105           3.38 imperial   
+ 62 W.D.        WD          4669            158           3.38 archaic    
+ 63 Od.         6           1888             64           3.39 archaic    
+ 64 Q.S.        4           3299            112           3.39 imperial   
+ 65 Il.         16          4903            167           3.41 archaic    
+ 66 Od.         23          2107             72           3.42 archaic    
+ 67 Dion.       31          1520             52           3.42 imperial   
+ 68 Q.S.        13          3151            109           3.46 imperial   
+ 69 Il.         24          4627            161           3.48 archaic    
+ 70 Q.S.        3           4346            152           3.50 imperial   
+ 71 Q.S.        2           3681            129           3.50 imperial   
+ 72 Dion.       46          1951             69           3.54 imperial   
+ 73 Theog.      Th.         5663            201           3.55 archaic    
+ 74 Q.S.        11          2817            101           3.59 imperial   
+ 75 Q.S.        8           2827            102           3.61 imperial   
+ 76 Il.         17          4284            155           3.62 archaic    
+ 77 Hom.Hymn    3           3055            111           3.63 archaic    
+ 78 Q.S.        1           4568            166           3.63 imperial   
+ 79 Od.         11          3544            129           3.64 archaic    
+ 80 Od.         13          2472             90           3.64 archaic    
+ 81 Il.         13          4757            174           3.66 archaic    
+ 82 Od.         3           2841            106           3.73 archaic    
+ 83 Theoc.      25          1557             59           3.79 hellenistic
+ 84 Il.         11          4825            183           3.79 archaic    
+ 85 Od.         8           3283            125           3.81 archaic    
+ 86 Od.         24          3058            117           3.83 archaic    
+ 87 Hom.Hymn    5           1639             63           3.84 archaic    
+ 88 Il.         15          4231            164           3.88 archaic    
+ 89 Sh.         Sh.         2683            104           3.88 archaic    
+ 90 Il.         1           3518            137           3.89 archaic    
+ 91 Il.         19          2404             94           3.91 archaic    
+ 92 Od.         5           2814            112           3.98 archaic    
+ 93 Od.         21          2443             98           4.01 archaic    
+ 94 Il.         9           3960            159           4.02 archaic    
+ 95 Od.         14          3007            121           4.02 archaic    
+ 96 Q.S.        5           3713            150           4.04 imperial   
+ 97 Od.         4           4763            193           4.05 archaic    
+ 98 Od.         22          2833            115           4.06 archaic    
+ 99 Il.         20          2857            116           4.06 archaic    
+100 Od.         16          2720            111           4.08 archaic    
+101 Q.S.        10          2741            112           4.09 imperial   
+102 Il.         8           3132            128           4.09 archaic    
+103 Hom.Hymn    4           3273            134           4.09 archaic    
+104 Il.         6           2974            123           4.14 archaic    
+105 Q.S.        12          3306            137           4.14 imperial   
+106 Il.         7           2709            113           4.17 archaic    
+107 Od.         7           1916             80           4.18 archaic    
+108 Il.         22          2993            125           4.18 archaic    
+109 Q.S.        7           4131            173           4.19 imperial   
+110 Il.         21          3504            147           4.20 archaic    
+111 Hom.Hymn    2           2737            115           4.20 archaic    
+112 Il.         5           5152            218           4.23 archaic    
+113 Il.         18          3544            150           4.23 archaic    
+114 Od.         12          2568            109           4.24 archaic    
+115 Od.         19          3427            146           4.26 archaic    
+116 Il.         12          2628            112           4.26 archaic    
+117 Od.         18          2412            103           4.27 archaic    
+118 Od.         1           2490            107           4.30 archaic    
+119 Od.         15          3138            136           4.33 archaic    
+120 Il.         4           3030            134           4.42 archaic    
+121 Q.S.        6           3701            165           4.46 imperial   
+122 Il.         14          2981            134           4.50 archaic    
+123 Od.         20          2191             99           4.52 archaic    
+124 Od.         17          3444            159           4.62 archaic    
+125 Il.         23          5041            235           4.66 archaic    
+126 Il.         2           4850            227           4.68 archaic    
+
+By work
+# A tibble: 12 × 5
+   work        num_words num_unexpected pct_unexpected era        
+   <chr>           <int>          <int>          <dbl> <fct>      
+ 1 Callim.Hymn      5200             79           1.52 hellenistic
+ 2 Argon.          32027            668           2.09 hellenistic
+ 3 Dion.          109517           2742           2.50 imperial   
+ 4 Theoc.          14273            445           3.12 hellenistic
+ 5 Phaen.           6149            201           3.27 hellenistic
+ 6 W.D.             4669            158           3.38 archaic    
+ 7 Theog.           5663            201           3.55 archaic    
+ 8 Q.S.            49063           1836           3.74 imperial   
+ 9 Sh.              2683            104           3.88 archaic    
+10 Od.             68293           2667           3.91 archaic    
+11 Hom.Hymn        12994            508           3.91 archaic    
+12 Il.             88796           3551           4.00 archaic    
+
+By era
+# A tibble: 3 × 4
+  era         num_words num_unexpected pct_unexpected
+  <fct>           <int>          <int>          <dbl>
+1 hellenistic     57649           1393           2.42
+2 imperial       158580           4578           2.89
+3 archaic        183098           7189           3.93
+
+Unexpected shapes per window of 181 words, archaic corpus
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
+  0.000   5.000   7.000   7.133   9.000  19.000   11924 
+
+    0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15    16    17    18    19 
+  172  1066  3321  8258 14441 20913 24292 24931 25161 18892 12281  7725  4578  2304  1392   934   371   111    29     2 
+
+           0            1            2            3            4            5            6            7            8            9           10           11           12           13           14           15           16           17           18           19 
+ 0.100482550  0.622758129  1.940131095  4.824330798  8.436444787 12.217392828 14.191407574 14.564711931 14.699078131 11.036722867  7.174570904  4.512951733  2.674471590  1.345998808  0.813207613  0.545643614  0.216738523  0.064846297  0.016941825  0.001168402 
+          0           1           2           3           4           5           6           7           8           9          10          11          12          13          14          15          16          17          18          19 
+  0.1004825   0.7232407   2.6633718   7.4877026  15.9241474  28.1415402  42.3329478  56.8976597  71.5967378  82.6334607  89.8080316  94.3209833  96.9954549  98.3414537  99.1546613  99.7003050  99.9170435  99.9818898  99.9988316 100.0000000 
+# A tibble: 182 × 4
+    work        book_n mean_unexpected_window era        
+    <chr>       <chr>                   <dbl> <fct>      
+  1 Callim.Hymn 2                        1.56 hellenistic
+  2 Theoc.      3                        2.09 hellenistic
+  3 Theoc.      20                       2.16 hellenistic
+  4 Callim.Hymn 3                        2.21 hellenistic
+  5 Theoc.      27                       2.35 hellenistic
+  6 Theoc.      5                        2.41 hellenistic
+  7 Callim.Hymn 6                        2.81 hellenistic
+  8 Dion.       34                       2.98 imperial   
+  9 Dion.       43                       3.19 imperial   
+ 10 Dion.       27                       3.22 imperial   
+ 11 Theoc.      4                        3.26 hellenistic
+ 12 Theoc.      6                        3.30 hellenistic
+ 13 Dion.       21                       3.32 imperial   
+ 14 Dion.       6                        3.34 imperial   
+ 15 Argon.      4                        3.35 hellenistic
+ 16 Theoc.      1                        3.39 hellenistic
+ 17 Theoc.      24                       3.40 hellenistic
+ 18 Callim.Hymn 4                        3.44 hellenistic
+ 19 Argon.      1                        3.46 hellenistic
+ 20 Dion.       36                       3.52 imperial   
+ 21 Dion.       22                       3.66 imperial   
+ 22 Dion.       45                       3.67 imperial   
+ 23 Callim.Hymn 1                        3.67 hellenistic
+ 24 Theoc.      7                        3.77 hellenistic
+ 25 Dion.       32                       3.79 imperial   
+ 26 Dion.       40                       3.83 imperial   
+ 27 Argon.      3                        3.83 hellenistic
+ 28 Dion.       35                       3.97 imperial   
+ 29 Dion.       18                       4.08 imperial   
+ 30 Dion.       39                       4.11 imperial   
+ 31 Dion.       20                       4.15 imperial   
+ 32 Dion.       28                       4.15 imperial   
+ 33 Dion.       38                       4.17 imperial   
+ 34 Dion.       23                       4.22 imperial   
+ 35 Dion.       17                       4.23 imperial   
+ 36 Dion.       1                        4.25 imperial   
+ 37 Dion.       30                       4.28 imperial   
+ 38 Dion.       14                       4.34 imperial   
+ 39 Dion.       3                        4.35 imperial   
+ 40 Dion.       9                        4.37 imperial   
+ 41 Dion.       11                       4.39 imperial   
+ 42 Dion.       15                       4.50 imperial   
+ 43 Dion.       2                        4.50 imperial   
+ 44 Dion.       41                       4.58 imperial   
+ 45 Dion.       44                       4.61 imperial   
+ 46 Dion.       7                        4.62 imperial   
+ 47 Dion.       5                        4.62 imperial   
+ 48 Argon.      2                        4.62 hellenistic
+ 49 Dion.       26                       4.63 imperial   
+ 50 Dion.       13                       4.64 imperial   
+ 51 Dion.       48                       4.67 imperial   
+ 52 Theoc.      9                        4.77 hellenistic
+ 53 Dion.       37                       4.80 imperial   
+ 54 Od.         10                       4.89 archaic    
+ 55 Theoc.      21                       4.89 hellenistic
+ 56 Dion.       8                        4.91 imperial   
+ 57 Dion.       10                       4.94 imperial   
+ 58 Dion.       25                       4.97 imperial   
+ 59 Dion.       4                        4.99 imperial   
+ 60 Dion.       47                       5.04 imperial   
+ 61 Dion.       24                       5.12 imperial   
+ 62 Dion.       16                       5.13 imperial   
+ 63 Dion.       19                       5.26 imperial   
+ 64 Dion.       29                       5.28 imperial   
+ 65 Theoc.      16                       5.55 hellenistic
+ 66 Dion.       42                       5.57 imperial   
+ 67 Theoc.      14                       5.77 hellenistic
+ 68 Od.         9                        5.83 archaic    
+ 69 Il.         10                       5.86 archaic    
+ 70 Hom.Hymn    19                       5.88 archaic    
+ 71 Dion.       12                       5.92 imperial   
+ 72 Phaen.      1                        5.92 hellenistic
+ 73 Q.S.        9                        5.94 imperial   
+ 74 Theoc.      22                       5.94 hellenistic
+ 75 Od.         2                        5.96 archaic    
+ 76 Dion.       33                       6.03 imperial   
+ 77 Il.         3                        6.03 archaic    
+ 78 Od.         6                        6.03 archaic    
+ 79 Dion.       31                       6.07 imperial   
+ 80 Q.S.        14                       6.13 imperial   
+ 81 W.D.        WD                       6.15 archaic    
+ 82 Q.S.        4                        6.17 imperial   
+ 83 Il.         16                       6.21 archaic    
+ 84 Theoc.      17                       6.28 hellenistic
+ 85 Q.S.        2                        6.33 imperial   
+ 86 Od.         23                       6.35 archaic    
+ 87 Q.S.        13                       6.36 imperial   
+ 88 Q.S.        3                        6.40 imperial   
+ 89 Il.         24                       6.41 archaic    
+ 90 Theog.      Th.                      6.43 archaic    
+ 91 Theoc.      23                       6.45 hellenistic
+ 92 Q.S.        8                        6.55 imperial   
+ 93 Theoc.      12                       6.56 hellenistic
+ 94 Q.S.        11                       6.59 imperial   
+ 95 Il.         17                       6.64 archaic    
+ 96 Q.S.        1                        6.66 imperial   
+ 97 Il.         13                       6.66 archaic    
+ 98 Od.         11                       6.68 archaic    
+ 99 Od.         13                       6.69 archaic    
+100 Hom.Hymn    3                        6.69 archaic    
+101 Hom.Hymn    5                        6.74 archaic    
+102 Od.         3                        6.80 archaic    
+103 Dion.       46                       6.85 imperial   
+104 Il.         11                       6.91 archaic    
+105 Theoc.      2                        6.97 hellenistic
+106 Od.         8                        6.97 archaic    
+107 Il.         1                        6.97 archaic    
+108 Il.         15                       6.99 archaic    
+109 Theoc.      25                       7.00 hellenistic
+110 Od.         24                       7.03 archaic    
+111 Od.         21                       7.05 archaic    
+112 Theoc.      10                       7.06 hellenistic
+113 Il.         19                       7.09 archaic    
+114 Sh.         Sh.                      7.11 archaic    
+115 Il.         22                       7.15 archaic    
+116 Od.         22                       7.22 archaic    
+117 Od.         14                       7.26 archaic    
+118 Il.         9                        7.3  archaic    
+119 Il.         6                        7.31 archaic    
+120 Theoc.      18                       7.36 hellenistic
+121 Od.         16                       7.36 archaic    
+122 Od.         4                        7.38 archaic    
+123 Od.         5                        7.38 archaic    
+124 Hom.Hymn    4                        7.41 archaic    
+125 Hom.Hymn    2                        7.42 archaic    
+126 Q.S.        12                       7.42 imperial   
+127 Q.S.        10                       7.42 imperial   
+128 Od.         7                        7.45 archaic    
+129 Il.         8                        7.46 archaic    
+130 Il.         21                       7.46 archaic    
+131 Q.S.        5                        7.48 imperial   
+132 Il.         20                       7.49 archaic    
+133 Q.S.        7                        7.49 imperial   
+134 Od.         12                       7.57 archaic    
+135 Il.         7                        7.60 archaic    
+136 Il.         18                       7.71 archaic    
+137 Od.         19                       7.73 archaic    
+138 Theoc.      13                       7.78 hellenistic
+139 Il.         5                        7.78 archaic    
+140 Od.         1                        7.86 archaic    
+141 Od.         15                       7.88 archaic    
+142 Il.         12                       7.93 archaic    
+143 Od.         18                       7.99 archaic    
+144 Theoc.      26                       8    hellenistic
+145 Il.         4                        8.03 archaic    
+146 Q.S.        6                        8.15 imperial   
+147 Od.         20                       8.19 archaic    
+148 Il.         14                       8.32 archaic    
+149 Od.         17                       8.34 archaic    
+150 Il.         2                        8.51 archaic    
+151 Il.         23                       8.60 archaic    
+152 Hom.Hymn    7                        8.87 archaic    
+153 Theoc.      11                      10.1  hellenistic
+154 Theoc.      15                      11.5  hellenistic
+155 Hom.Hymn    1                      NaN    archaic    
+156 Hom.Hymn    10                     NaN    archaic    
+157 Hom.Hymn    11                     NaN    archaic    
+158 Hom.Hymn    12                     NaN    archaic    
+159 Hom.Hymn    13                     NaN    archaic    
+160 Hom.Hymn    14                     NaN    archaic    
+161 Hom.Hymn    15                     NaN    archaic    
+162 Hom.Hymn    16                     NaN    archaic    
+163 Hom.Hymn    17                     NaN    archaic    
+164 Hom.Hymn    18                     NaN    archaic    
+165 Hom.Hymn    20                     NaN    archaic    
+166 Hom.Hymn    21                     NaN    archaic    
+167 Hom.Hymn    22                     NaN    archaic    
+168 Hom.Hymn    23                     NaN    archaic    
+169 Hom.Hymn    24                     NaN    archaic    
+170 Hom.Hymn    25                     NaN    archaic    
+171 Hom.Hymn    26                     NaN    archaic    
+172 Hom.Hymn    27                     NaN    archaic    
+173 Hom.Hymn    28                     NaN    archaic    
+174 Hom.Hymn    29                     NaN    archaic    
+175 Hom.Hymn    30                     NaN    archaic    
+176 Hom.Hymn    31                     NaN    archaic    
+177 Hom.Hymn    32                     NaN    archaic    
+178 Hom.Hymn    33                     NaN    archaic    
+179 Hom.Hymn    6                      NaN    archaic    
+180 Hom.Hymn    8                      NaN    archaic    
+181 Hom.Hymn    9                      NaN    archaic    
+182 Theoc.      19                     NaN    hellenistic
