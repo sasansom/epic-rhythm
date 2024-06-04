@@ -1,14 +1,25 @@
-https://github.com/sasansom/sedes
-2ec2a1240e75acec2588838f18e18220ecced9f1
+## Source data
+
+The source data for analysis are the preprocessed corpus CSV files in the corpus directory.
+They come from the
+[sedes](https://github.com/sasansom/sedes) repository at commit
+[2ec2a1240e75acec2588838f18e18220ecced9f1](https://github.com/sasansom/sedes/tree/2ec2a1240e75acec2588838f18e18220ecced9f1).
+To recreate the source files:
+
+```
+$ cd sedes/
+$ git checkout 2ec2a1240e75acec2588838f18e18220ecced9f1
+$ (source venv/bin/activate && make clean && make -j4)
+```
+
+Then copy sedes/corpus/*.csv into the corpus directory here.
+
+
+## Derived data
 
 Let the `$SEDES` environment variable point to the sedes clone.
 Let this clone be the current working directory.
 
-1. Generate original SEDES corpus/*.csv files.
-   ```
-   SEDES=/path/to/sedes
-   (cd "$SEDES" && source venv/bin/activate && make clean && make -j4)
-   ```
 1. Merge appositive groups in the original files to make corpus-appositive/*.csv files.
    ```
    mkdir -p corpus-appositive/
