@@ -17,38 +17,54 @@ Then copy sedes/corpus/*.csv into the corpus directory here.
 
 ## Derived data
 
-Let the `$SEDES` environment variable point to the sedes clone.
-Let this clone be the current working directory.
+Processing the source data requires some programs from the sedes repository.
+Set the `$SEDES` environment variable to the path to a
+clone of the sedes repository.
+It may be a relative path.
 
-1. Merge appositive groups in the original files to make corpus-appositive/*.csv files.
-   ```
-   mkdir -p corpus-appositive/
-   for work_csv in "$SEDES"/corpus/*.csv; do Rscript merge-appositives.r "$work_csv" > "corpus-appositive/$(basename "$work_csv")"; done
-   ```
-1. Compute expectancy of the appositive-group files.
-   ```
-   WORKS_ARCHAIC="iliad odyssey homerichymns theogony worksanddays shield"
-   WORKS_HELLENISTIC="argonautica callimachushymns aratus theocritus"
-   WORKS_IMPERIAL="quintussmyrnaeus nonnusdionysiaca"
-   "$SEDES/src/expectancy" --by sedes/work,metrical_shape $(for work in $WORKS_ARCHAIC $WORKS_HELLENISTIC $WORKS_IMPERIAL; do echo "corpus-appositive/$work.csv"; done) > expectancy.sedes-work,metrical_shape.csv
-   "$SEDES/src/expectancy" --by sedes/metrical_shape $(for work in $WORKS_ARCHAIC; do echo "corpus-appositive/$work.csv"; done) > expectancy.sedes-metrical_shape.archaic.csv
-   "$SEDES/src/expectancy" --by sedes/metrical_shape $(for work in $WORKS_ARCHAIC $WORKS_HELLENISTIC; do echo "corpus-appositive/$work.csv"; done) > expectancy.sedes-metrical_shape.archaic+hellenistic.csv
-   "$SEDES/src/expectancy" --by sedes/metrical_shape $(for work in $WORKS_ARCHAIC $WORKS_HELLENISTIC $WORKS_IMPERIAL; do echo "corpus-appositive/$work.csv"; done) > expectancy.sedes-metrical_shape.csv
-   ("$SEDES/src/join-expectancy" --by sedes/metrical_shape $(for work in $WORKS_ARCHAIC; do echo "corpus-appositive/$work.csv"; done) expectancy.sedes-metrical_shape.archaic.csv; "$SEDES/src/join-expectancy" --by sedes/metrical_shape $(for work in $WORKS_HELLENISTIC; do echo "corpus-appositive/$work.csv"; done) expectancy.sedes-metrical_shape.archaic+hellenistic.csv | sed -e '1d'; "$SEDES/src/join-expectancy" --by sedes/metrical_shape $(for work in $WORKS_IMPERIAL; do echo "corpus-appositive/$work.csv"; done) expectancy.sedes-metrical_shape.csv | sed -e '1d') > joined.sedes-metrical_shape.csv
-   ```
-1. Generate tables and stats outputs.
-   ```
-   ./tables.py < expectancy.sedes-work,metrical_shape.csv > tables.html
-   ./summary-table.py < expectancy.sedes-metrical_shape.csv > summary-table.html
-   ./table-ssl.py < expectancy.sedes-work,metrical_shape.csv > table-ssl.html
-   ./unexpected-table.py < joined.sedes-metrical_shape.csv > unexpected-table.html
-   Rscript unexpected.r > unexpected.txt
-   ```
+For example, if epic-rhythm is cloned next to sedes,
+
+```
+SEDES=../sedes/
+```
+
+Then run
+
+```
+make
+```
+
+Alternatively, you can provide the `$SEDES` path on the `make` command line,
+rather than setting it as an environment variable:
+
+```
+make SEDES=../sedes/
+```
+
+Running `make` will produce the following output files:
+
+* corpus-appositive/\*.csv: Corpus CSV files, but where the `word` column represents appositive groups, rather than single words.
+* expectancy.sedes-work,metrical_shape.csv: Expectancy of sedes by work and metrical shape, in the complete appositive-group corpus.
+* expectancy.sedes-metrical_shape.archaic.csv: Expectancy of sedes by metrical shape, in the Archaic corpus (iliad, odyssey, homerichymns, theogony, worksanddays, shield).
+* expectancy.sedes-metrical_shape.archaic+hellenistic.csv: Expectancy of sedes by metrical shape, in the Archaic and Hellenistic corpus (Archaic plus argonautica, callimachushymns, aratus, theocritus).
+* expectancy.sedes-metrical_shape.csv: Expectancy of sedes by metrical shape, in the complete appositive-group corpus (Archaic and Hellenistic plus quintussmyrnaeus, nonnusdionysiaca).
+* joined.sedes-metrical_shape.csv: Appositive-group corpus joined with expectancy of sedes by metrical shape.
+* tables.html: HTML tables of sedes expectancy by work, with one table for each metrical shape.
+* summary-ssl.html: HTML table of sedes expectancy by work, for the metrical shape ⏑⏑– only (except from tables.html).
+* summary-table.html: HTML table of sedes expectancy by metrical shape, over the complete appositive-group corpus.
+* unexpected-table.html: HTML table of numbers and rates of unexpected metrical shapes per work, and the books with the highest and lowest rates.
+* unexpected.txt: Various one-off calculations of rates of unexpected metrical shapes.
+
 
 ## Known bugs
 
-Both Firefox and Chrome fail to preserve non-breaking spaces
+The HTML tables are meant to be copied and pasted
+into a word processor.
+They include non-breaking space characters where
+text in a cell should not line-break.
+But both Firefox and Chrome fail to preserve non-breaking spaces
 when copying selected text in the browser window.
+So you may have to patch up bad line breaks manually.
 
 In Firefox, the issue is discussed in:
 
