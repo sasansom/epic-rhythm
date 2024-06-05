@@ -19,7 +19,13 @@ data <- read_csv("joined.sedes-metrical_shape.csv", col_types = cols(
 		work %in% c("Argon.", "Callim.Hymn", "Phaen.", "Theoc.") ~ "hellenistic",
 		work %in% c("Q.S.", "Dion.") ~ "imperial",
 	), levels = c("archaic", "hellenistic", "imperial")),
-)
+) %>%
+group_by(work, book_n) %>%
+mutate(unique_line_n = cumsum(
+	replace_na(line_n, "") != replace_na(coalesce(lag(line_n), line_n), "") |
+	word_n <= coalesce(lag(word_n), word_n))
+) %>%
+ungroup()
 
 if (any(is.na(data$era))) {
 	stop()
@@ -69,12 +75,12 @@ cat("\n")
 
 cat(sprintf("Unexpected shapes per window of %d words, archaic corpus\n", WINDOW_SIZE))
 
-data <- data %>%
+data_windows_left <- data %>%
 	group_by(work, book_n) %>%
 	mutate(unexpected_window = roll_sum(is_unexpected, WINDOW_SIZE, align = "left", fill = NA)) %>%
 	ungroup()
 
-archaic_data <- filter(data, era == "archaic")
+archaic_data <- filter(data_windows_left, era == "archaic")
 summary(archaic_data$unexpected_window)
 x <- table(archaic_data$unexpected_window)
 x
@@ -101,8 +107,53 @@ p <- ggplot(archaic_data) +
 	)
 ggsave(sprintf("unexpected-window-%d-cumul.archaic.png", WINDOW_SIZE), p, width = 7.5, height = 3, dpi = 200)
 
-print(data %>%
+print(data_windows_left %>%
 	group_by(work, book_n) %>%
 	summarize(mean_unexpected_window = mean(unexpected_window, na.rm = TRUE), era = first(era), .groups = "drop") %>%
 	arrange(mean_unexpected_window)
 , n = 500)
+
+data_windows_center <- data %>%
+	group_by(work, book_n) %>%
+	mutate(unique_word_n = 1:n()) %>%
+	mutate(unexpected_window = roll_sum(is_unexpected, WINDOW_SIZE, align = "center", fill = NA)) %>%
+	ungroup()
+
+data_hom_hymn_4 <- filter(data_windows_center, work == "Hom.Hymn", book_n == 4)
+unique_line_n <- function(line_n) {
+	filter(data_hom_hymn_4, !!line_n == line_n)$unique_line_n %>% first()
+}
+begin_unique_line_n <- unique_line_n("409b")
+end_unique_line_n <- unique_line_n("442")
+p <- ggplot() +
+	geom_bar(data = data_hom_hymn_4, aes(
+		x = unique_word_n,
+		y = unexpected_window,
+	), stat = "identity", width = 2.0) +
+	geom_point(data = filter(data_hom_hymn_4, is_unexpected), aes(
+		x = unique_word_n,
+		y = -0.25,
+	), shape = 2, alpha = 0.8, size = 0.2) +
+	scale_x_continuous(
+		limits = c(min(data_hom_hymn_4$unique_word_n), max(data_hom_hymn_4$unique_word_n)),
+		breaks = (data_hom_hymn_4 %>% filter(as.integer(line_n) %% 50 == 0 & replace_na(line_n != lag(line_n), TRUE)))$unique_word_n,
+		labels = (data_hom_hymn_4 %>% filter(as.integer(line_n) %% 50 == 0 & replace_na(line_n != lag(line_n), TRUE)))$line_n,
+		minor_breaks = NULL,
+		expand = expansion(mult = 0, add = 0),
+	) +
+	scale_y_continuous(
+		breaks = seq(0, max(data_hom_hymn_4$unexpected_window, na.rm = TRUE), by = 2),
+		minor_breaks = seq(0, max(data_hom_hymn_4$unexpected_window, na.rm = TRUE), by = 1),
+	) +
+	labs(
+		x = "Line Number",
+		y = "Unexpected Shapes\nPer Window",
+	) +
+	theme_minimal(
+		# https://web.archive.org/web/20150802160110if_/https://cloud.github.com/downloads/klepas/open-baskerville/OpenBaskerville-0.0.75.zip
+		# Copy OpenBaskerville-0.0.75.otf to $HOME/.fonts
+		# fc-cache
+		base_family = "Open Baskerville 0.0.75",
+		base_size = 9,
+	)
+ggsave("Hom.Hymn.4-windows.png", p, width = 6.0 - 2 * 0.88, height = 1.4, dpi = 600, bg = "white")

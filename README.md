@@ -54,6 +54,7 @@ Running `make` will produce the following output files:
 * summary-table.html: HTML table of sedes expectancy by metrical shape, over the complete appositive-group corpus.
 * unexpected-table.html: HTML table of numbers and rates of unexpected metrical shapes per work, and the books with the highest and lowest rates.
 * unexpected.txt: Various one-off calculations of rates of unexpected metrical shapes.
+* Hom.Hymn.4-windows.png: Graph of unexpected shapes per window in *Hom.Hymn* 4.
 
 
 ## Known bugs
