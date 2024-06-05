@@ -126,10 +126,13 @@ unique_line_n <- function(line_n) {
 begin_unique_line_n <- unique_line_n("409b")
 end_unique_line_n <- unique_line_n("442")
 p <- ggplot() +
-	geom_step(data = data_hom_hymn_4, aes(
+	geom_polygon(data = with(filter(data_hom_hymn_4, !is.na(unexpected_window)), tibble(
+		unique_word_n = c(min(unique_word_n), rbind(unique_word_n, unique_word_n + 1), max(unique_word_n) + 1),
+		unexpected_window = c(0, rbind(unexpected_window, unexpected_window), 0),
+	)), aes(
 		x = unique_word_n,
 		y = unexpected_window,
-	), linewidth = 0.15) +
+	), fill = "#606060") +
 	geom_point(data = filter(data_hom_hymn_4, is_unexpected), aes(
 		x = unique_word_n,
 		y = -0.25,
