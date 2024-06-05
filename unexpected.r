@@ -126,10 +126,10 @@ unique_line_n <- function(line_n) {
 begin_unique_line_n <- unique_line_n("409b")
 end_unique_line_n <- unique_line_n("442")
 p <- ggplot() +
-	geom_bar(data = data_hom_hymn_4, aes(
+	geom_col(data = data_hom_hymn_4, aes(
 		x = unique_word_n,
 		y = unexpected_window,
-	), stat = "identity", width = 2.0) +
+	), width = 2.0) +
 	geom_point(data = filter(data_hom_hymn_4, is_unexpected), aes(
 		x = unique_word_n,
 		y = -0.25,
