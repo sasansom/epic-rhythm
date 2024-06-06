@@ -145,7 +145,8 @@ p <- ggplot() +
 		expand = expansion(mult = 0, add = 0),
 	) +
 	scale_y_continuous(
-		breaks = seq(0, max(data_hom_hymn_4$unexpected_window, na.rm = TRUE), by = 2),
+		limits = c(0, 16),
+		breaks = seq(0, 16, by = 4),
 		minor_breaks = seq(0, max(data_hom_hymn_4$unexpected_window, na.rm = TRUE), by = 1),
 	) +
 	labs(
@@ -153,10 +154,13 @@ p <- ggplot() +
 		y = "Unexpected Shapes\nPer Window",
 	) +
 	theme_minimal(
-		# https://web.archive.org/web/20150802160110if_/https://cloud.github.com/downloads/klepas/open-baskerville/OpenBaskerville-0.0.75.zip
-		# Copy OpenBaskerville-0.0.75.otf to $HOME/.fonts
+		# https://github.com/impallari/Libre-Baskerville/raw/2fba7c8e0a8f53f86efd3d81bc4c63674b0c613f/LibreBaskerville-Regular.ttf
+		# Copy LibreBaskerville-Regular.ttf to $HOME/.fonts
 		# fc-cache
-		base_family = "Open Baskerville 0.0.75",
-		base_size = 9,
+		base_family = "Libre Baskerville",
+		base_size = 8,
+	) +
+	theme (
+		axis.title.y = element_text(size = 7),
 	)
-ggsave("Hom.Hymn.4-windows.png", p, width = 6.0 - 2 * 0.88, height = 1.4, dpi = 600, bg = "white")
+ggsave("Hom.Hymn.4-windows.png", p, width = 6.0 - 2 * 0.88, height = 1.25, dpi = 600, bg = "white")
