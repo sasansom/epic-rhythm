@@ -123,8 +123,6 @@ data_hom_hymn_4 <- filter(data_windows_center, work == "Hom.Hymn", book_n == 4)
 unique_line_n <- function(line_n) {
 	filter(data_hom_hymn_4, !!line_n == line_n)$unique_line_n %>% first()
 }
-begin_unique_line_n <- unique_line_n("409b")
-end_unique_line_n <- unique_line_n("442")
 p <- ggplot() +
 	geom_polygon(data = with(filter(data_hom_hymn_4, !is.na(unexpected_window)), tibble(
 		unique_word_n = c(min(unique_word_n), rbind(unique_word_n, unique_word_n + 1), max(unique_word_n) + 1),
