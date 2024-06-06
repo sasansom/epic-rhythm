@@ -143,7 +143,7 @@ p <- ggplot() +
 		expand = expansion(mult = 0, add = 0),
 	) +
 	scale_y_continuous(
-		limits = c(0, 16),
+		limits = c(NA, 16),
 		breaks = seq(0, 16, by = 4),
 		minor_breaks = seq(0, max(data_hom_hymn_4$unexpected_window, na.rm = TRUE), by = 1),
 	) +
