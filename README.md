@@ -1,3 +1,7 @@
+Support data and programs for the article "Epic Rhythm: Metrical Shapes in Greek Hexameter."
+
+The Online Appendix can be found [here](sasansom.github.io/tables.html).
+
 ## Source data
 
 The source data for analysis are the preprocessed corpus CSV files in the corpus directory.
