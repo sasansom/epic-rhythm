@@ -1,4 +1,4 @@
-Support data and programs for the article "Epic Rhythm: Metrical Shapes in Greek Hexameter."
+Support data and programs for the article "Epic Rhythm: Metrical Shapes in Greek Hexameter" _Greek, Roman, and Byzantine Studies_ (forthcoming).
 
 The Online Appendix can be found [here](https://sasansom.github.io/tables.html).
 
