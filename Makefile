@@ -114,6 +114,6 @@ Hom.Hymn.4-windows-74.png \
 Sh.-windows-74.png \
 Il.18-windows-74.png \
 &: joined.sedes-metrical_shape.csv
-	Rscript unexpected.r > "$@"
+	Rscript unexpected.r > unexpected.txt
 
 .DELETE_ON_ERROR:
