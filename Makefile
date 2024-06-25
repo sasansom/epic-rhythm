@@ -41,6 +41,7 @@ all: \
 test:
 	$(PYTHON) -m unittest
 
+corpus-appositive/*.csv: .EXTRA_PREREQS = merge-appositives.r
 corpus-appositive/%.csv: corpus/%.csv
 	Rscript merge-appositives.r "$<" > "$@"
 
