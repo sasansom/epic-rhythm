@@ -118,39 +118,34 @@ for (g in list(
 		work = "Hom.Hymn",
 		book_n = 4,
 		title = FALSE,
-		data = filter(data, work == "Hom.Hymn", book_n == 4),
 		window_size = 181
 	),
 	list(
 		work = "Hom.Hymn",
 		book_n = 2,
 		title = TRUE,
-		data = filter(data, work == "Hom.Hymn", book_n == 2),
 		window_size = 74
 	),
 	list(
 		work = "Hom.Hymn",
 		book_n = 4,
 		title = TRUE,
-		data = filter(data, work == "Hom.Hymn", book_n == 4),
 		window_size = 74
 	),
 	list(
 		work = "Sh.",
 		book_n = NA,
 		title = TRUE,
-		data = filter(data, work == "Sh."),
 		window_size = 74
 	),
 	list(
 		work = "Od.",
 		book_n = 18,
 		title = TRUE,
-		data = filter(data, work == "Od.", book_n == 18),
 		window_size = 74
 	)
 )) {
-	plot_data <- filter(g$data, work == g$work, is.na(g$book_n) | book_n == g$book_n) %>%
+	plot_data <- filter(data, work == g$work, is.na(g$book_n) | book_n == g$book_n) %>%
 		group_by(work, book_n) %>%
 		mutate(unique_word_n = 1:n()) %>%
 		mutate(unexpected_window = roll_sum(is_unexpected, g$window_size, align = "center", fill = NA)) %>%
