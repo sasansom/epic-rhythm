@@ -139,7 +139,7 @@ for (g in list(
 		window_size = 74
 	),
 	list(
-		work = "Od.",
+		work = "Il.",
 		book_n = 18,
 		title = TRUE,
 		window_size = 74
