@@ -113,52 +113,63 @@ print(data_windows_left %>%
 	arrange(mean_unexpected_window)
 , n = 500)
 
-data_windows_center <- data %>%
-	group_by(work, book_n) %>%
-	mutate(unique_word_n = 1:n()) %>%
-	mutate(unexpected_window = roll_sum(is_unexpected, WINDOW_SIZE, align = "center", fill = NA)) %>%
-	ungroup()
-
-data_hom_hymn_4 <- filter(data_windows_center, work == "Hom.Hymn", book_n == 4)
-unique_line_n <- function(line_n) {
-	filter(data_hom_hymn_4, !!line_n == line_n)$unique_line_n %>% first()
-}
-p <- ggplot() +
-	geom_polygon(data = with(filter(data_hom_hymn_4, !is.na(unexpected_window)), tibble(
-		unique_word_n = c(min(unique_word_n), rbind(unique_word_n, unique_word_n + 1), max(unique_word_n) + 1),
-		unexpected_window = c(0, rbind(unexpected_window, unexpected_window), 0),
-	)), aes(
-		x = unique_word_n,
-		y = unexpected_window,
-	), fill = "#606060") +
-	geom_point(data = filter(data_hom_hymn_4, is_unexpected), aes(
-		x = unique_word_n,
-		y = -0.25,
-	), shape = 2, alpha = 0.8, size = 0.2) +
-	scale_x_continuous(
-		limits = c(min(data_hom_hymn_4$unique_word_n), max(data_hom_hymn_4$unique_word_n)),
-		breaks = (data_hom_hymn_4 %>% filter(as.integer(line_n) %% 50 == 0 & replace_na(line_n != lag(line_n), TRUE)))$unique_word_n,
-		labels = (data_hom_hymn_4 %>% filter(as.integer(line_n) %% 50 == 0 & replace_na(line_n != lag(line_n), TRUE)))$line_n,
-		minor_breaks = NULL,
-		expand = expansion(mult = 0, add = 0),
-	) +
-	scale_y_continuous(
-		limits = c(NA, 16),
-		breaks = seq(0, 16, by = 4),
-		minor_breaks = seq(0, max(data_hom_hymn_4$unexpected_window, na.rm = TRUE), by = 1),
-	) +
-	labs(
-		x = "Line Number",
-		y = "Unexpected Shapes\nPer Window",
-	) +
-	theme_minimal(
-		# https://github.com/impallari/Libre-Baskerville/raw/2fba7c8e0a8f53f86efd3d81bc4c63674b0c613f/LibreBaskerville-Regular.ttf
-		# Copy LibreBaskerville-Regular.ttf to $HOME/.fonts
-		# fc-cache
-		base_family = "Libre Baskerville",
-		base_size = 8,
-	) +
-	theme (
-		axis.title.y = element_text(size = 7),
+for (g in list(
+	list(
+		work = "Hom.Hymn",
+		book_n = 4,
+		data = filter(data, work == "Hom.Hymn", book_n == 4),
+		window_size = 181
 	)
-ggsave("Hom.Hymn.4-windows.png", p, width = 6.0 - 2 * 0.88, height = 1.25, dpi = 600, bg = "white")
+)) {
+	plot_data <- filter(g$data, work == g$work, book_n == g$book_n) %>%
+		group_by(work, book_n) %>%
+		mutate(unique_word_n = 1:n()) %>%
+		mutate(unexpected_window = roll_sum(is_unexpected, g$window_size, align = "center", fill = NA)) %>%
+		ungroup()
+	unique_line_n <- function(line_n) {
+		filter(plot_data, line_n == !!line_n)$unique_line_n %>% first()
+	}
+	p <- ggplot() +
+		geom_polygon(data = with(filter(plot_data, !is.na(unexpected_window)), tibble(
+			unique_word_n = c(min(unique_word_n), rbind(unique_word_n, unique_word_n + 1), max(unique_word_n) + 1),
+			unexpected_window = c(0, rbind(unexpected_window, unexpected_window), 0),
+		)), aes(
+			x = unique_word_n,
+			y = unexpected_window,
+		), fill = "#606060") +
+		geom_point(data = filter(plot_data, is_unexpected), aes(
+			x = unique_word_n,
+			y = -0.25,
+		), shape = 2, alpha = 0.8, size = 0.2) +
+		scale_x_continuous(
+			limits = c(min(plot_data$unique_word_n), max(plot_data$unique_word_n)),
+			breaks = (plot_data %>% filter(as.integer(line_n) %% 50 == 0 & replace_na(line_n != lag(line_n), TRUE)))$unique_word_n,
+			labels = (plot_data %>% filter(as.integer(line_n) %% 50 == 0 & replace_na(line_n != lag(line_n), TRUE)))$line_n,
+			minor_breaks = NULL,
+			expand = expansion(mult = 0, add = 0),
+		) +
+		scale_y_continuous(
+			limits = c(NA, 16),
+			breaks = seq(0, 16, by = 4),
+			minor_breaks = seq(0, 16, by = 1),
+		) +
+		labs(
+			x = "Line Number",
+			y = "Unexpected Shapes\nPer Window",
+		) +
+		theme_minimal(
+			# https://github.com/impallari/Libre-Baskerville/raw/2fba7c8e0a8f53f86efd3d81bc4c63674b0c613f/LibreBaskerville-Regular.ttf
+			# Copy LibreBaskerville-Regular.ttf to $HOME/.fonts
+			# fc-cache
+			base_family = "Libre Baskerville",
+			base_size = 8,
+		) +
+		theme (
+			axis.title.y = element_text(size = 7),
+		)
+	ggsave(sprintf("%s.%d-windows-%d.png",
+		g$work,
+		g$book_n,
+		g$window_size
+	), p, width = 6.0 - 2 * 0.88, height = 1.25, dpi = 600, bg = "white")
+}
