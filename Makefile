@@ -31,7 +31,11 @@ all: \
 	table-ssl.html \
 	unexpected-table.html \
 	unexpected.txt \
-	Hom.Hymn.4-windows-181.png
+	Hom.Hymn.4-windows-181.png \
+	Hom.Hymn.2-windows-74.png \
+	Hom.Hymn.4-windows-74.png \
+	Sh.-windows-74.png \
+	Od.18-windows-74.png
 
 .PHONY: test
 test:
@@ -96,11 +100,19 @@ unexpected.txt \
 unexpected-window-$(WINDOW_SIZE).archaic.png \
 unexpected-window-$(WINDOW_SIZE)-cumul.archaic.png \
 Hom.Hymn.4-windows-181.png \
+Hom.Hymn.2-windows-74.png \
+Hom.Hymn.4-windows-74.png \
+Sh.-windows-74.png \
+Od.18-windows-74.png \
 : .EXTRA_PREREQS = unexpected.r
 unexpected.txt \
 unexpected-window-$(WINDOW_SIZE).archaic.png \
 unexpected-window-$(WINDOW_SIZE)-cumul.archaic.png \
 Hom.Hymn.4-windows-181.png \
+Hom.Hymn.2-windows-74.png \
+Hom.Hymn.4-windows-74.png \
+Sh.-windows-74.png \
+Od.18-windows-74.png \
 &: joined.sedes-metrical_shape.csv
 	Rscript unexpected.r > "$@"
 
