@@ -354,9 +354,9 @@ unmatched <- anti_join(
 	by = c("work", "book_n", "line_n", "word_n", "word", "lemma")
 )
 if (nrow(unmatched) != 0) {
+	sink(stderr())
 	print(unmatched)
-	cat("Unmatched exceptional appositives.\n")
-	stop()
+	stop("Unmatched exceptional appositives.")
 }
 # Sanity check: only expected appositive types in the hardcoded exceptional
 # appositives.
