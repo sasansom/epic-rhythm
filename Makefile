@@ -35,7 +35,7 @@ all: \
 	Hom.Hymn.2-windows-74.png \
 	Hom.Hymn.4-windows-74.png \
 	Sh.-windows-74.png \
-	Il.18-windows-74.png
+	Il..18-windows-74.png
 
 .PHONY: test
 test:
