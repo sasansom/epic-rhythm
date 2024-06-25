@@ -63,7 +63,13 @@ expectancy.sedes-metrical_shape.csv \
 :
 	"$(SEDES)/src/expectancy" --by sedes/metrical_shape $^ > "$@"
 
-joined.sedes-metrical_shape.csv:
+joined.sedes-metrical_shape.csv: \
+	$(CSV_ARCHAIC) \
+	$(CSV_HELLENISTIC) \
+	$(CSV_IMPERIAL) \
+	expectancy.sedes-metrical_shape.archaic.csv \
+	expectancy.sedes-metrical_shape.archaic+hellenistic.csv \
+	expectancy.sedes-metrical_shape.csv
 	( \
 		"$(SEDES)/src/join-expectancy" --by sedes/metrical_shape $(CSV_ARCHAIC) expectancy.sedes-metrical_shape.archaic.csv; # Keep the header line on the first one. \
 		"$(SEDES)/src/join-expectancy" --by sedes/metrical_shape $(CSV_HELLENISTIC) expectancy.sedes-metrical_shape.archaic+hellenistic.csv | sed -e '1d'; \
