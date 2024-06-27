@@ -1,6 +1,6 @@
 Support data and programs for the article "Epic Rhythm: Metrical Shapes in Greek Hexameter" _Greek, Roman, and Byzantine Studies_ 64.3 ([forthcoming](https://grbs.library.duke.edu/index.php/grbs/forth)).
 
-The Online Appendix can be found [here](https://sasansom.github.io/tables.html).
+The Online Appendix can be found [here](https://sasansom.github.io/epic-rhythm/tables.html).
 
 ## Source data
 
