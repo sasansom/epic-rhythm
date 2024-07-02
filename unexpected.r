@@ -170,7 +170,7 @@ for (g in list(
 			breaks = (plot_data %>% filter(as.integer(line_n) %% 50 == 0 & replace_na(line_n != lag(line_n), TRUE)))$unique_word_n,
 			labels = (plot_data %>% filter(as.integer(line_n) %% 50 == 0 & replace_na(line_n != lag(line_n), TRUE)))$line_n,
 			minor_breaks = NULL,
-			expand = expansion(mult = 0, add = 0),
+			expand = expansion(mult = 0, add = 12),
 		) +
 		scale_y_continuous(
 			limits = c(NA, 16),
