@@ -25,7 +25,7 @@ STYLE_Z = (
     ("font-size", "7pt"),
 )
 STYLE_PERCENT = (
-    ("font-size", "6pt"),
+    ("font-size", "7pt"),
 )
 STYLE_CELL = (
     ("font-size", "8pt"),
