@@ -32,6 +32,7 @@ all: \
 	unexpected-table.html \
 	unexpected.txt \
 	Hom.Hymn.4-windows-181.png \
+	Hom.Hymn.4-windows-181.pdf \
 	Hom.Hymn.2-windows-74.png \
 	Hom.Hymn.4-windows-74.png \
 	Sh.-windows-74.png \
@@ -101,6 +102,7 @@ unexpected.txt \
 unexpected-window-$(WINDOW_SIZE).archaic.png \
 unexpected-window-$(WINDOW_SIZE)-cumul.archaic.png \
 Hom.Hymn.4-windows-181.png \
+Hom.Hymn.4-windows-181.pdf \
 Hom.Hymn.2-windows-74.png \
 Hom.Hymn.4-windows-74.png \
 Sh.-windows-74.png \
@@ -110,6 +112,7 @@ unexpected.txt \
 unexpected-window-$(WINDOW_SIZE).archaic.png \
 unexpected-window-$(WINDOW_SIZE)-cumul.archaic.png \
 Hom.Hymn.4-windows-181.png \
+Hom.Hymn.4-windows-181.pdf \
 Hom.Hymn.2-windows-74.png \
 Hom.Hymn.4-windows-74.png \
 Sh.-windows-74.png \

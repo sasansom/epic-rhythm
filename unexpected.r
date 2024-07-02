@@ -118,7 +118,8 @@ for (g in list(
 		work = "Hom.Hymn",
 		book_n = 4,
 		title = FALSE,
-		window_size = 181
+		window_size = 181,
+		extensions = c("png", "pdf")
 	),
 	list(
 		work = "Hom.Hymn",
@@ -198,10 +199,19 @@ for (g in list(
 		) +
 		theme (
 			axis.title.y = element_text(size = 7),
+			plot.margin = margin(2, 0, 0, 0.5, "mm"),
 		)
-	ggsave(sprintf("%s%s-windows-%d.png",
-		g$work,
-		if (is.na(g$book_n)) "" else sprintf(".%d", g$book_n),
-		g$window_size
-	), p, width = 6.0 - 2 * 0.88, height = 1.25, dpi = 600, bg = "white")
+	for (ext in if (!is.null(g$extensions)) g$extensions else c("png")) {
+		device <- if (ext == "pdf") {
+			cairo_pdf
+		} else {
+			NULL
+		}
+		ggsave(sprintf("%s%s-windows-%d.%s",
+			g$work,
+			if (is.na(g$book_n)) "" else sprintf(".%d", g$book_n),
+			g$window_size,
+			ext
+		), p, width = 6.0 - 2 * 0.88, height = 1.25, dpi = 600, bg = "white", device = device)
+	}
 }
