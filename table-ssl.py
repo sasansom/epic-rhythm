@@ -153,7 +153,7 @@ for work in common.KNOWN_WORKS + (common.Work("total", "TOTAL", "TOTAL", "Book")
             if sum(xvec) > 0:
                 contents += (
                     common.html_start_tag_style("span", STYLE_PERCENT) +
-                    html.escape("(" + format_percent(entry.x/sum(xvec)) + ")") +
+                    html.escape(format_percent(entry.x/sum(xvec))) +
                     common.html_end_tag("span")
                 )
             else:

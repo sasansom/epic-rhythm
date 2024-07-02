@@ -140,7 +140,7 @@ for shape in common.shapes_gen():
             if sum(xvec) > 0:
                 contents += (
                     common.html_start_tag_style("span", STYLE_PERCENT) +
-                    html.escape("(" + format_percent(entry.x/sum(xvec)) + ")") +
+                    html.escape(format_percent(entry.x/sum(xvec))) +
                     common.html_end_tag("span")
                 )
             else:
