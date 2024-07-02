@@ -142,7 +142,7 @@ for shape in common.shapes_gen():
             if entry.z is not None:
                 contents += (
                     common.html_start_tag_style("span", STYLE_Z) +
-                    html.escape("{:+.03f}".format(entry.z).replace("-", "−")) +
+                    html.escape("{:+.02f}".format(entry.z).replace("-", "−")) +
                     common.html_end_tag("span")
                 )
             else:
