@@ -53,6 +53,13 @@ STYLE_RIGHT = (
     ("text-align", "right"),
 )
 
+# Format 1.0 as "100%", other less percentages with 1 digit of precision.
+def format_percent(x):
+    if x >= 1.0:
+        return f"{x*100:g}%"
+    else:
+        return f"{x*100:.1f}%"
+
 Entry = collections.namedtuple("Entry", ("x", "z"))
 
 M = {}
@@ -140,7 +147,7 @@ for work in common.KNOWN_WORKS + (common.Work("total", "TOTAL", "TOTAL", "Book")
             if sum(xvec) > 0:
                 contents += (
                     common.html_start_tag_style("span", STYLE_PERCENT) +
-                    html.escape(f"({entry.x/sum(xvec)*100:.1f}%)") +
+                    html.escape("(" + format_percent(entry.x/sum(xvec)) + ")") +
                     common.html_end_tag("span") +
                     "\xa0"
                 )
