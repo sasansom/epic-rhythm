@@ -111,7 +111,7 @@ for shape in common.shapes_gen():
     print(common.html_start_tag("tr"))
     print(
         common.html_start_tag_style("td", STYLE_HEADER + STYLE_LEFT) +
-        html.escape(' '.join(shape)) +
+        html.escape('\u2009'.join(shape)) +
         common.html_end_tag("td")
     )
     for sedes in map(float, common.KNOWN_SEDES):
