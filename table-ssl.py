@@ -133,7 +133,7 @@ for work in common.KNOWN_WORKS + (common.Work("total", "TOTAL", "TOTAL", "Book")
                 contents = ""
             else:
                 styles.extend(STYLE_IMPERMISSIBLE)
-                contents = html.escape("✖")
+                contents = html.escape("✖\ufe0e")
         else:
             if entry is None:
                 entry = Entry(0, common.expectancy(0, xvec))
