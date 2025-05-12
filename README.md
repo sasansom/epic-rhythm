@@ -64,6 +64,16 @@ Running `make` will produce the following output files:
 
 ## Known bugs
 
+The word `"ἀμφ’"` in `ALWAYS_PREPOSITIVE_WORDS` was erroneously specified as `"μφ᾽"`,
+with U+1FBD GREEK KORONIS in place of the U+2019 RIGHT SINGLE QUOTATION MARK,
+which prevented the word from being marked as prepositive as intended.
+This would have changed about 200 appositive groups across the corpus.
+
+There are other words that might have been marked as prepositive or postpositive,
+but were not, in *Epic Rhythm*.
+Later additions to the word lists appear in the SEDES program:
+https://github.com/sasansom/sedes/commit/73b235e6fd5d1cf211fd102e88449a2f7af9179f.
+
 The HTML tables are meant to be copied and pasted
 into a word processor.
 They include non-breaking space characters where
