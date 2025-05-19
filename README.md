@@ -72,7 +72,9 @@ This would have changed about 200 appositive groups across the corpus.
 There are other words that might have been marked as prepositive or postpositive,
 but were not, in *Epic Rhythm*.
 Later additions to the word lists appear in the SEDES program:
-https://github.com/sasansom/sedes/commit/73b235e6fd5d1cf211fd102e88449a2f7af9179f.
+* https://github.com/sasansom/sedes/commit/763ca754c70ee05921dfc357768c022623e2c5e0
+* https://github.com/sasansom/sedes/commit/570cda9577bd553b313bbaafbffd57d63c505613
+* https://github.com/sasansom/sedes/commit/535dd84f0fd5babcc4487fff32d2e98b470e9768
 
 The HTML tables are meant to be copied and pasted
 into a word processor.
